@@ -1,0 +1,41 @@
+[
+    {
+        "character_id": "char_001",
+        "name": "カジカちゃん",
+        "species_tag": "blobfish",
+        "traits": [
+            "optimistic",
+            "clumsy"
+        ],
+        "visual_parts": {
+            "fineID": "standard",
+            "glowPatternID": "none"
+        }
+    },
+    {
+        "character_id": "char_002",
+        "name": "アンコー先輩",
+        "species_tag": "anglerfish",
+        "traits": [
+            "hardworking",
+            "sarcastic"
+        ],
+        "visual_parts": {
+            "fineID": "sharp",
+            "glowPatternID": "steady"
+        }
+    },
+    {
+        "character_id": "char_003",
+        "name": "ジェリー",
+        "species_tag": "jellyfish",
+        "traits": [
+            "lonely",
+            "calm"
+        ],
+        "visual_parts": {
+            "fineID": "soft",
+            "glowPatternID": "pulse"
+        }
+    }
+]

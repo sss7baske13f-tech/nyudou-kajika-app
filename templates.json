@@ -1,0 +1,85 @@
+[
+    {
+        "id": "diary_001",
+        "template": "{name}、今日は発光の練習をしたよ。『ピカッ』って気合を入れたら、逆に周りが全部真っ暗になった。深海の太陽になるはずが、暗闇の王としてデビューしてしまった。",
+        "traits": [
+            "hardworking",
+            "clumsy"
+        ],
+        "species_tag": "anglerfish"
+    },
+    {
+        "id": "diary_002",
+        "template": "プロフィール帳に『好きなもの：おヒレ』って書いたら、みんなに『ナルシストなの？』ってツッコまれた。違うんだ、お刺身のおヒレが好きなんだ…。",
+        "traits": [
+            "misunderstood"
+        ],
+        "species_tag": "blobfish"
+    },
+    {
+        "id": "diary_003",
+        "template": "流行りのマリンスノーを食べに行ったら、ただのゴミだった。深海のグルメ界は厳しい。{name}はそっと涙を流した（海水でバレなかった）。",
+        "traits": [
+            "glutton"
+        ],
+        "species_tag": "any"
+    },
+    {
+        "id": "diary_004",
+        "template": "自分を透明にして隠れていたら、自分でもどこにいるか分からなくなった。3時間後に空腹で現れた時、みんなは普通にトランプしてた。",
+        "traits": [
+            "lonely",
+            "clumsy"
+        ],
+        "species_tag": "jellyfish"
+    },
+    {
+        "id": "diary_005",
+        "template": "今日のドジ：寝返りを打ったら、水圧で顔の形が変わった。鏡を見たら、そこには昨日よりさらに『ぶさ』が加速した自分がいた。最高だ。",
+        "traits": [
+            "optimistic"
+        ],
+        "species_tag": "blobfish"
+    },
+    {
+        "id": "diary_006",
+        "template": "「君、目が綺麗だね」って誘われたけど、それ、僕の擬餌（ライト）だよ。本体はこっちの地味な方だよ。深海の合コンは間違いが多すぎる。",
+        "traits": [
+            "sarcastic"
+        ],
+        "species_tag": "anglerfish"
+    },
+    {
+        "id": "diary_007",
+        "template": "ヒレの動きを同期させるダンスに誘われた。{name}はリズム感がなさすぎて、一人だけ深海ドリルみたいに回転してた。みんな、ドン引きだった。",
+        "traits": [
+            "clumsy"
+        ],
+        "species_tag": "any"
+    },
+    {
+        "id": "diary_008",
+        "template": "朝起きたら、クラゲの傘の中に誰かの忘れ物のサンダルが入ってた。僕の体はいつからロッカーになったんだろう？",
+        "traits": [
+            "calm"
+        ],
+        "species_tag": "jellyfish"
+    },
+    {
+        "id": "diary_009",
+        "template": "占いによれば、今日は『水圧を感じる日』らしい。深海でそれ言われても困るんだけどな。あ、でも、確かになんとなく重い気がする…。",
+        "traits": [
+            "superstitious"
+        ],
+        "species_tag": "any"
+    },
+    {
+        "id": "diary_010",
+        "template": "{name}、マッチングアプリの写真を『地上で干されている時のガチ顔』にしてみた。マッチング数、なんと0件！世界はまだ僕の魅力に追いついてない。",
+        "traits": [
+            "confident",
+            "blobfish_special"
+        ],
+        "species_tag": "blobfish"
+    }
+]

@@ -1,0 +1,234 @@
+/* --- Phase 8: Heisei Essence --- */
+
+/* Ranking Section */
+.heisei-section {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border: 2px solid var(--deco-gold);
+}
+
+.retro-h3 {
+    text-align: center;
+    color: var(--deco-purple);
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0 #fff;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent);
+}
+
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rank-slot {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+}
+
+.rank-slot.rank-1 {
+    border-color: gold;
+    background: #fffde7;
+}
+
+.rank-slot.rank-2 {
+    border-color: silver;
+    background: #f5f5f5;
+}
+
+.rank-slot.rank-3 {
+    border-color: #cd7f32;
+    background: #fff3e0;
+}
+
+.crown {
+    font-size: 1.2rem;
+}
+
+.friend-select {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background: white;
+}
+
+/* Secret Section (Bag-toji) */
+.secret-section {
+    border-color: var(--deco-pink);
+    border-style: dashed;
+    position: relative;
+    overflow: hidden;
+}
+
+.bag-toji-tab {
+    background: var(--deco-pink);
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.bag-toji-tab:hover {
+    filter: brightness(1.1);
+}
+
+.kiritri-line {
+    font-family: monospace;
+    margin-left: auto;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.secret-content {
+    padding: 10px;
+    background: #fff0f5;
+    /* Light pink */
+    margin-top: 10px;
+    border-radius: 4px;
+    animation: openBag 0.5s ease-out;
+}
+
+@keyframes openBag {
+    from {
+        clip-path: inset(0 0 100% 0);
+        height: 0;
+        opacity: 0;
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+        height: auto;
+        opacity: 1;
+    }
+}
+
+.handwritten-input {
+    width: 100%;
+    border: none;
+    border-bottom: 2px dotted #aaa;
+    background: transparent;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    padding: 5px;
+    font-size: 1rem;
+    color: var(--ink-color);
+}
+
+.handwritten-input:focus {
+    outline: none;
+    border-color: var(--deco-pink);
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dashed-line {
+    border: 0;
+    border-top: 2px dashed #ccc;
+    margin: 15px 0;
+}
+
+.retro-btn {
+    width: 100%;
+    margin-top: 10px;
+    background: var(--deco-purple);
+    color: white;
+    border: 2px solid white;
+    border-radius: 15px;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.retro-btn:hover {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* --- Phase 9: Exchange Modal Styles --- */
+.exchange-modal-content {
+    max-width: 400px;
+    text-align: center;
+    border: 3px solid var(--deco-gold);
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.exchange-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+    border-bottom: 2px dashed var(--deco-green);
+    padding-bottom: 10px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 2px solid var(--deco-blue);
+    color: var(--deco-blue);
+    padding: 5px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.tab-btn.active {
+    background: var(--deco-blue);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 10px var(--deco-blue);
+}
+
+.qr-container {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px auto;
+    width: 210px;
+    /* 180px QR + padding */
+    height: 210px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #eee;
+}
+
+.data-input-area {
+    width: 100%;
+    height: 100px;
+    margin: 15px 0;
+    padding: 10px;
+    border: 2px solid var(--deco-purple);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 0.8rem;
+    resize: none;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.pixel-text {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.small-note {
+    font-size: 0.8rem;
+    color: #666;
+}

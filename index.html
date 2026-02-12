@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深海プロフィール帳 - Deep Sea Profile Book</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Zen+Maru+Gothic:wght@400;700&family=Hachi+Maru+Pop&family=Klee+One&family=Yomogi&family=Potta+One&family=RocknRoll+One&family=Mochi+iy+Pop+One&family=Kiwi+Maru&family=Yusei+Magic&family=Dela+Gothic+One&family=Stick&family=DotGothic16&family=Reggae+One&family=Kaisei+Decol&family=Shippori+Mincho&family=New+Tegomin&family=Sawarabi+Mincho&family=Kosugi+Maru&family=Zen+Kurenaido&family=Zen+Loop&family=Pacifico&family=Permanent+Marker&family=Satisfy&family=Courgette&family=Sacramento&family=Shadows+Into+Light&family=Amatic+SC&family=Indie+Flower&family=Architects+Daughter&family=Gloria+Hallelujah&family=Caveat&family=Zeyada&family=Homemade+Apple&family=Special+Elite&family=Cormorant+Garamond&family=Playfair+Display&family=Abril+Fatface&family=Lobster&family=Kaushan+Script&family=Great+Vibes&family=Alex+Brush&family=Allura&family=Dancing+Script&family=Handlee&family=Reenie+Beanie&family=Coming+Soon&family=Patrick+Hand&family=Schoolbell&family=Just+Another+Hand&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="bubble-container" id="bubbleContainer"></div>
+
+    <!-- Floating Bug Report Button (always visible) -->
+    <button id="floatingBugBtn" class="floating-bug-btn" title="バグ報告 / フィードバック">🐛</button>
+
+    <div id="app">
+        <!-- Title Screen / Initial Entry -->
+        <section class="glass-card full-height" id="createView">
+            <header class="app-header">
+                <h1 class="app-title">深海プロフィール帳</h1>
+                <p class="subtitle">あなただけの深海キャラを作ろう</p>
+            </header>
+
+            <form id="profileForm" class="profile-form">
+                <div class="form-group">
+                    <label>お名前 (Name)</label>
+                    <input type="text" id="inputName" placeholder="さいきょうのカジカ" required maxlength="10">
+                </div>
+
+                <div class="form-group">
+                    <label>MBTI (性格タイプ)</label>
+                    <div class="select-wrapper">
+                        <select id="inputMBTI" required>
+                            <option value="" disabled selected>選択してね</option>
+                            <optgroup label="分析家 (Analysts)">
+                                <option value="INTJ">INTJ (建築家)</option>
+                                <option value="INTP">INTP (論理学者)</option>
+                                <option value="ENTJ">ENTJ (指揮官)</option>
+                                <option value="ENTP">ENTP (討論者)</option>
+                            </optgroup>
+                            <optgroup label="外交官 (Diplomats)">
+                                <option value="INFJ">INFJ (提唱者)</option>
+                                <option value="INFP">INFP (仲介者)</option>
+                                <option value="ENFJ">ENFJ (主人公)</option>
+                                <option value="ENFP">ENFP (広報運動家)</option>
+                            </optgroup>
+                            <optgroup label="番人 (Sentinels)">
+                                <option value="ISTJ">ISTJ (管理者)</option>
+                                <option value="ISFJ">ISFJ (擁護者)</option>
+                                <option value="ESTJ">ESTJ (幹部)</option>
+                                <option value="ESFJ">ESFJ (領事官)</option>
+                            </optgroup>
+                            <optgroup label="探検家 (Explorers)">
+                                <option value="ISTP">ISTP (巨匠)</option>
+                                <option value="ISFP">ISFP (冒険家)</option>
+                                <option value="ESTP">ESTP (起業家)</option>
+                                <option value="ESFP">ESFP (エンターテイナー)</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Phase 6: Deep Sea Role & Mood -->
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>深海での役割 (オーラ)</label>
+                        <select id="inputRole">
+                            <option value="leader">リーダー (赤)</option>
+                            <option value="idol">アイドル (ピンク)</option>
+                            <option value="healer">癒やし係 (緑)</option>
+                            <option value="brain">参謀 (青)</option>
+                            <option value="joker">道化師 (黄)</option>
+                            <option value="shadow">裏ボス (黒)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>今の気分</label>
+                        <select id="inputMood">
+                            <option value="fine">絶好調！</option>
+                            <option value="sleepy">ねむい...</option>
+                            <option value="hungry">お腹すいた</option>
+                            <option value="floating">漂流中</option>
+                            <option value="crushed">水圧につぶされそう</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>ひとこと (Talk to me!)</label>
+                    <input type="text" id="inputMessage" placeholder="よろしくね！" maxlength="20">
+                </div>
+
+                <!-- Extended Profile Fields -->
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>血液型 (Blood)</label>
+                        <select id="inputBlood">
+                            <option value="A">A型</option>
+                            <option value="B">B型</option>
+                            <option value="O">O型</option>
+                            <option value="AB">AB型</option>
+                            <option value="?">不明</option>
+                        </select>
+                        <label class="privacy-toggle">
+                            <input type="checkbox" id="privateBlood"> 🔒非公開
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>星座 (Sign)</label>
+                        <select id="inputSign">
+                            <option value="aries">おひつじ座</option>
+                            <option value="taurus">おうし座</option>
+                            <option value="gemini">ふたご座</option>
+                            <option value="cancer">かに座</option>
+                            <option value="leo">しし座</option>
+                            <option value="virgo">おとめ座</option>
+                            <option value="libra">てんびん座</option>
+                            <option value="scorpio">さそり座</option>
+                            <option value="sagittarius">いて座</option>
+                            <option value="capricorn">やぎ座</option>
+                            <option value="aquarius">みずがめ座</option>
+                            <option value="pisces">うお座</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>マイブーム (My Boom)</label>
+                    <input type="text" id="inputHobby" placeholder="深海散歩、ヒトデ集め..." maxlength="15">
+                    <label class="privacy-toggle">
+                        <input type="checkbox" id="privateHobby"> 🔒非公開
+                    </label>
+                </div>
+
+                <input type="hidden" id="inputFont" value="">
+
+                <button type="submit" class="btn-primary pulse-anim">診断＆作成！ ★</button>
+            </form>
+
+            <!-- Inline Handwriting Diagnosis (shown after form submit) -->
+            <div id="inlineHandwritingArea" class="hidden" style="padding: 20px;">
+                <div class="glass-card" style="padding: 20px; text-align:center;">
+                    <h3 style="color:var(--accent-neon); margin-bottom:10px;">🖋 筆跡診断中...</h3>
+                    <p style="margin-bottom:15px; font-size:0.9rem;">あなたの文字のスタイルを決めるよ！</p>
+
+                    <div id="inlineQuestionArea">
+                        <h4 id="inlineQuestionText" style="margin-bottom:15px; color:var(--accent-neon);"></h4>
+                        <div id="inlineQuestionOptions" style="display:flex; flex-direction:column; gap:10px;"></div>
+                    </div>
+
+                    <div id="inlineScanProgress" class="hidden" style="margin-top:20px; text-align:center;">
+                        <div class="scanning-bar"
+                            style="height:4px; background:var(--accent-glow); width:0%; transition:width 2s;"></div>
+                        <p id="inlineScanText" class="blink-text">診断結果を計算中...</p>
+                    </div>
+
+                    <div id="inlineFontResult" class="hidden"
+                        style="margin-top:20px; text-align:center; background:rgba(255,255,255,0.9); color:#333; padding:15px; border-radius:8px;">
+                        <h3 style="color:var(--deco-purple);">あなたの筆跡タイプ</h3>
+                        <div class="result-badge" id="inlineFontTypeName" style="font-weight:bold; margin:10px 0;">
+                        </div>
+                        <p id="inlineFontPreview" class="handwritten-preview"
+                            style="font-size:1.5rem; margin-bottom:15px;">あいうえお ABCDE</p>
+                        <button id="inlineApplyFontBtn" class="btn-primary pulse-anim"
+                            style="width:100%;">この文字でプロフィール完成！ ★</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Book View (Tabs) -->
+        <section class="book-container hidden" id="bookView">
+            <!-- Tabs -->
+            <div class="notebook-tabs">
+                <button class="tab active" data-target="tab-profile">My Page</button>
+                <button class="tab" data-target="tab-friends">Friends</button>
+                <button class="tab" data-target="tab-diary">Diary</button>
+            </div>
+
+            <div class="binder-ring"></div>
+            <div class="binder-ring"></div>
+            <div class="binder-ring"></div>
+
+            <div class="profile-sheet">
+
+                <!-- Tab Content: My Profile -->
+                <div id="tab-profile" class="tab-content active">
+                    <div class="sheet-header">
+                        <span class="sticker-deco">★ MY PROFILE ★</span>
+                        <div style="display:flex; gap:5px;">
+                            <button id="openSettingsBtn" class="btn-mini">⚙ 設定</button>
+                        </div>
+                        <span class="date-stamp" id="creationDate">2026.02.11</span>
+                    </div>
+                    <div class="sheet-body">
+                        <div class="char-visual">
+                            <div class="polaroid">
+                                <img src="" alt="Character" id="resCharImg">
+                            </div>
+                            <div class="sticker-badge" id="resSpeciesName">SPECIES</div>
+                        </div>
+
+                        <div class="handwritten-area">
+                            <div class="field-row">
+                                <span class="label">名前:</span>
+                                <span class="value" id="resName"></span>
+                            </div>
+                            <div class="field-row">
+                                <span class="label">性格:</span>
+                                <span class="value" id="resMBTI"></span>
+                            </div>
+
+                            <!-- Extended Fields Display -->
+                            <div class="field-row">
+                                <span class="label">血液型:</span>
+                                <span class="value" id="resBlood"></span>
+                                <span class="lock-icon hidden" id="lockBlood">🔒</span>
+                            </div>
+                            <div class="field-row">
+                                <span class="label">星座:</span>
+                                <span class="value" id="resSign"></span>
+                            </div>
+                            <div class="field-row">
+                                <span class="label">マイブーム:</span>
+                                <span class="value" id="resHobby"></span>
+                                <span class="lock-icon hidden" id="lockHobby">🔒</span>
+                            </div>
+                            <!-- Phase 6 Display -->
+                            <div class="field-row">
+                                <span class="label">役割:</span>
+                                <span class="value" id="resRole"></span>
+                            </div>
+                            <div class="field-row">
+                                <span class="label">気分:</span>
+                                <span class="value" id="resMood"></span>
+                            </div>
+
+                            <div class="memo-box">
+                                <span class="label-sm">深海のウワサ:</span>
+                                <p class="value-text" id="resDesc"></p>
+                            </div>
+
+                            <div class="memo-box pink-bg">
+                                <span class="label-sm">ひとこと:</span>
+                                <p class="value-text" id="resMessage" style="font-size: 1.2rem;"></p>
+                            </div>
+
+                            <!-- New Heisei Section -->
+                            <hr class="dashed-line">
+
+                            <!-- Profile Exchange (V1) -->
+                            <div class="exchange-section" style="text-align:center; margin-bottom:20px;">
+                                <button id="openExchangeBtn" class="btn-primary"
+                                    style="background:var(--accent-glow); color:#fff;">
+                                    🤝 プロフィール交換 (Exchange)
+                                </button>
+                            </div>
+
+                            <!-- Ranking -->
+                            <div class="heisei-section ranking-section">
+                                <h3 class="retro-h3">👑 My Best 3 👑</h3>
+                                <div class="ranking-list" id="myRankingList">
+                                    <div class="rank-slot rank-1" data-rank="0">
+                                        <span class="crown">🥇</span>
+                                        <select class="friend-select" id="rank1Select">
+                                            <option value="">(None)</option>
+                                        </select>
+                                    </div>
+                                    <div class="rank-slot rank-2" data-rank="1">
+                                        <span class="crown">🥈</span>
+                                        <select class="friend-select" id="rank2Select">
+                                            <option value="">(None)</option>
+                                        </select>
+                                    </div>
+                                    <div class="rank-slot rank-3" data-rank="2">
+                                        <span class="crown">🥉</span>
+                                        <select class="friend-select" id="rank3Select">
+                                            <option value="">(None)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Secret Profile (Bag-toji) -->
+                            <div class="heisei-section secret-section">
+                                <div class="bag-toji-tab" id="mySecretTab">
+                                    <span class="lock-icon">🔒</span> ひみつの袋とじ <span
+                                        class="kiritri-line">-------✂-------</span>
+                                </div>
+                                <div class="secret-content hidden" id="mySecretContent">
+                                    <div class="field-row">
+                                        <span class="label">好きな人:</span>
+                                        <input type="text" id="inputSecretCrush" class="handwritten-input"
+                                            placeholder="内緒だよ...">
+                                    </div>
+                                    <div class="field-row">
+                                        <span class="label">秘密の悩み:</span>
+                                        <input type="text" id="inputSecretWorry" class="handwritten-input"
+                                            placeholder="実は...">
+                                    </div>
+                                    <button id="saveSecretBtn" class="btn-small retro-btn">とじる (Save)</button>
+                                </div>
+                            </div>
+
+                            <div class="sheet-footer">
+                                <button id="resetBtn" class="btn-sm">書き直す</button>
+                            </div>
+                        </div> <!-- close handwritten-area -->
+                    </div> <!-- close sheet-body -->
+                </div> <!-- close tab-profile -->
+
+                <!-- Tab Content: Friends List -->
+                <div id="tab-friends" class="tab-content">
+                    <div class="sheet-header">
+                        <span class="sticker-deco" style="background:var(--deco-green);">★ FRIENDS ★</span>
+                        <button id="addFriendBtn" class="btn-xs">+ 追加する</button>
+                    </div>
+
+                    <!-- Friend Book Container -->
+                    <div id="friendBookContainer" class="book-spread-container">
+                        <!-- Navigation -->
+                        <button id="prevFriendBtn" class="nav-btn left">&lt;</button>
+                        <button id="nextFriendBtn" class="nav-btn right">&gt;</button>
+
+                        <!-- Index View (TOC) -->
+                        <div id="friendIndexPage" class="book-page index-page">
+                            <h3>★ FRIEND LIST ★</h3>
+                            <div class="index-group" id="indexLover">
+                                <h4>♥ LOVER</h4>
+                                <ul class="index-list"></ul>
+                            </div>
+                            <div class="index-group" id="indexFamily">
+                                <h4>☺ FAMILY</h4>
+                                <ul class="index-list"></ul>
+                            </div>
+                            <div class="index-group" id="indexFriend">
+                                <h4>★ FRIENDS</h4>
+                                <ul class="index-list"></ul>
+                            </div>
+                        </div>
+
+                        <!-- Spread View (Left: Basic, Right: Details) -->
+                        <div id="friendSpread" class="book-spread hidden">
+                            <!-- Left Page -->
+                            <div class="book-page left-page">
+                                <div class="char-visual large">
+                                    <div class="polaroid">
+                                        <img src="" alt="Friend" id="bookImg">
+                                    </div>
+                                    <div class="sticker-badge" id="bookSpecies">SPECIES</div>
+                                </div>
+                                <h2 id="bookName">Name</h2>
+                                <p id="bookMBTI">MBTI</p>
+                                <div class="badges-row">
+                                    <span id="bookRole" class="pill-badge">Role</span>
+                                    <span id="bookMood" class="pill-badge">Mood</span>
+                                </div>
+                            </div>
+
+                            <!-- Right Page -->
+                            <div class="book-page right-page">
+                                <div class="notebook-lines">
+                                    <p><span class="label">Relation:</span> <span id="bookRel"
+                                            class="handwritten">?</span></p>
+                                    <p><span class="label">Blood:</span> <span id="bookBlood"
+                                            class="handwritten">?</span></p>
+                                    <p><span class="label">Sign:</span> <span id="bookSign" class="handwritten">?</span>
+                                    </p>
+                                    <p><span class="label">Hobby:</span> <span id="bookHobby"
+                                            class="handwritten">?</span></p>
+                                    <div class="message-box">
+                                        <p id="bookMessage" class="handwritten">Message...</p>
+                                    </div>
+                                    <div class="action-area">
+                                        <button id="bookExchangeBtn" class="btn-primary-sm">交換日記する！</button>
+                                    </div>
+                                </div>
+                                <div class="page-number" id="bookPageNum">1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Friend Form (Hidden Overlay) -->
+                    <div id="friendFormOverlay" class="overlay hidden">
+                        <div class="overlay-card">
+                            <h3>友達を追加</h3>
+                            <input type="text" id="friendName" placeholder="友達の名前" maxlength="10">
+                            <select id="friendMBTI">
+                                <option value="" disabled selected>MBTIを選択</option>
+                                <option value="INTJ">INTJ (建築家)</option>
+                                <option value="INTP">INTP (論理学者)</option>
+                                <option value="ENTJ">ENTJ (指揮官)</option>
+                                <option value="ENTP">ENTP (討論者)</option>
+                                <option value="INFJ">INFJ (提唱者)</option>
+                                <option value="INFP">INFP (仲介者)</option>
+                                <option value="ENFJ">ENFJ (主人公)</option>
+                                <option value="ENFP">ENFP (広報運動家)</option>
+                                <option value="ISTJ">ISTJ (管理者)</option>
+                                <option value="ISFJ">ISFJ (擁護者)</option>
+                                <option value="ESTJ">ESTJ (幹部)</option>
+                                <option value="ESFJ">ESFJ (領事官)</option>
+                                <option value="ISTP">ISTP (巨匠)</option>
+                                <option value="ISFP">ISFP (冒険家)</option>
+                                <option value="ESTP">ESTP (起業家)</option>
+                                <option value="ESFP">ESFP (エンターテイナー)</option>
+                            </select>
+                            <!-- Phase 6: Relationship Type -->
+                            <div class="form-group">
+                                <label>関係性</label>
+                                <select id="friendRelation">
+                                    <option value="friend">友達 (Friend)</option>
+                                    <option value="lover">恋人 (Lover)</option>
+                                    <option value="family">家族 (Family)</option>
+                                    <option value="rival">ライバル (Rival)</option>
+                                </select>
+                            </div>
+                            <div class="overlay-actions">
+                                <button id="cancelFriendBtn" class="btn-cancel">キャンセル</button>
+                                <button id="saveFriendBtn" class="btn-primary-sm">保存</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Write Diary Modal -->
+                    <div id="writeDiaryModal" class="overlay hidden">
+                        <div class="diary-paper-modal">
+                            <div class="modal-header">
+                                <span class="question-badge">Q. 今日の質問</span>
+                                <p id="questionPrompt">好きな深海魚は？</p>
+                            </div>
+
+                            <!-- Phase 6: Diary Header -->
+                            <div class="diary-header-inputs">
+                                <div class="dh-row">
+                                    <label>天気:</label>
+                                    <select id="diaryWeather">
+                                        <option value="sunny">晴れ (Sunny)</option>
+                                        <option value="cloudy">くもり (Cloudy)</option>
+                                        <option value="rainy">雨 (Rainy)</option>
+                                        <option value="storm">嵐 (Storm)</option>
+                                        <option value="snow">雪 (Snow)</option>
+                                        <option value="current">潮流 (Current)</option>
+                                    </select>
+                                </div>
+                                <div class="dh-row">
+                                    <input type="text" id="diaryEvent" placeholder="今日の出来事..." class="dh-input">
+                                </div>
+                                <div class="dh-row">
+                                    <input type="text" id="diaryPlan" placeholder="明日の予定..." class="dh-input">
+                                </div>
+                            </div>
+
+                            <div style="display:flex; justify-content:flex-end; gap:10px; margin-bottom:5px;">
+                                <button id="addTestBtn" class="btn-secondary" style="font-size:0.8rem;">🔮 心理テスト
+                                    (Shinri Test)</button>
+                            </div>
+
+                            <textarea id="diaryInput" placeholder="ここに書いてね..." maxlength="200"></textarea>
+
+                            <div class="toolbar">
+                                <div class="font-selector">
+                                    <button class="tool-btn" data-font="'Zen Maru Gothic'">丸文字</button>
+                                    <button class="tool-btn" data-font="serif">明朝</button>
+                                    <button class="tool-btn" data-font="sans-serif">ゴシック</button>
+                                </div>
+                                <div class="sticker-selector">
+                                    <span>シール:</span>
+                                    <button class="sticker-btn">★</button>
+                                    <button class="sticker-btn">♥</button>
+                                    <button class="sticker-btn">♪</button>
+                                    <button class="sticker-btn">🐟</button>
+                                </div>
+                            </div>
+
+                            <div class="overlay-actions">
+                            </div>
+                        </div>
+                    </div> <!-- close tab-friends -->
+
+                    <!-- Handwriting Analysis Modal -->
+                    <div id="handwritingModal" class="overlay hidden">
+                        <div class="profile-card-modal glass-card" style="max-width: 450px;">
+                            <div class="modal-header">
+                                <span class="sticker-deco">AI手書き分析</span>
+                                <button id="closeHandwritingBtn" class="btn-cancel">×</button>
+                            </div>
+                            <div class="modal-body">
+                                <p>あなたの文字の写真をアップロードするか、特徴を選んでください。<br>深海AIが「クセ」を学習して、ポラロイドや日記の文字を自動生成します。</p>
+
+                                <div class="analysis-options" style="display:flex; gap:10px; margin-top:20px;">
+                                    <div class="option-card" id="optUpload"
+                                        style="flex:1; padding:20px; background:rgba(255,255,255,0.1); border-radius:10px; text-align:center; cursor:pointer; border:2px dashed #8be9fd;">
+                                        <span class="icon" style="font-size:2rem;">📷</span><br>
+                                        <span>写真で登録 (Mock)</span>
+                                    </div>
+                                    <div class="option-card" id="optSelect"
+                                        style="flex:1; padding:20px; background:rgba(255,255,255,0.1); border-radius:10px; text-align:center; cursor:pointer; border:2px solid #bd93f9;">
+                                        <span class="icon" style="font-size:2rem;">✏️</span><br>
+                                        <span>特徴から選ぶ</span>
+                                    </div>
+                                </div>
+
+                                <div id="scanProgress" class="hidden" style="margin-top:20px; text-align:center;">
+                                    <div class="scanning-bar"
+                                        style="height:4px; background:var(--accent-glow); width:0%; transition:width 2s;">
+                                    </div>
+                                    <p id="scanText" class="blink-text">Analysing strokes...</p>
+                                </div>
+
+                                <div id="analysisQuestionArea" class="hidden" style="margin-top:20px;">
+                                    <h4 id="handwritingQuestionText"
+                                        style="margin-bottom:15px; color:var(--accent-neon);"></h4>
+                                    <div id="handwritingOptions" style="display:flex; flex-direction:column; gap:10px;">
+                                    </div>
+                                </div>
+
+                                <div id="fontResult" class="hidden"
+                                    style="margin-top:20px; text-align:center; background:rgba(255,255,255,0.9); color:#333; padding:15px; border-radius:8px;">
+                                    <h3 style="color:var(--deco-purple);">分析完了！</h3>
+                                    <div class="result-badge" id="fontTypeName"
+                                        style="font-weight:bold; margin:10px 0;">丸文字ポップ
+                                    </div>
+                                    <p id="fontPreview" class="handwritten-preview"
+                                        style="font-size:1.5rem; margin-bottom:15px;">あいうえお ABCDE</p>
+                                    <button id="applyFontBtn" class="btn-primary">この文字に決定</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Friend Profile Modal Removed (Integrated into Book View) -->
+
+
+                    <!-- Tab Content: Diary -->
+                    <div id="tab-diary" class="tab-content">
+                        <div class="sheet-header">
+                            <span class="sticker-deco" style="background:var(--accent-glow);">★ DIARY ★</span>
+                            <div style="display:flex; gap:5px;">
+                                <button id="importDiaryBtn" class="btn-mini"
+                                    style="background:var(--deco-blue); color:white;">📥 受け取る</button>
+                                <button id="nextDayBtn" class="btn-xs">次の日へ >></button>
+                            </div>
+                        </div>
+
+                        <!-- Diary Exchange Modal (New) -->
+                        <div id="diaryExchangeModal" class="overlay hidden">
+                            <div class="profile-card-modal glass-card" style="max-width: 400px;">
+                                <div class="modal-header">
+                                    <span class="sticker-deco">日記の交換</span>
+                                    <button id="closeDiaryExchangeBtn" class="btn-cancel">×</button>
+                                </div>
+                                <div class="modal-body" style="text-align:center;">
+
+                                    <!-- Import View -->
+                                    <div id="diaryImportView">
+                                        <p>友達から送られてきた<br>日記データを貼り付けてください</p>
+                                        <textarea id="diaryImportInput" class="data-input-area"
+                                            placeholder="ここに貼り付け (Paste here)"></textarea>
+                                        <button id="runImportDiaryBtn" class="btn-primary" style="width:100%;">日記帳に綴じる
+                                            (Import)</button>
+                                    </div>
+
+                                    <!-- Export View (Hidden by default) -->
+                                    <div id="diaryExportView" class="hidden">
+                                        <p>このデータをコピーして<br>友達に送ってね！</p>
+                                        <textarea id="diaryExportOutput" class="data-input-area" readonly></textarea>
+                                        <button id="copyDiaryDataBtn" class="btn-primary" style="width:100%;">コピーする
+                                            (Copy)</button>
+                                        <p id="diaryCopyStatus" style="font-size:0.8rem; height:1.2em; margin-top:5px;">
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Diary Book Container -->
+                        <div id="diaryBookContainer" class="book-spread-container single-page-mode">
+                            <button id="prevDiaryBtn" class="nav-btn left">&lt;</button>
+                            <button id="nextDiaryBtn" class="nav-btn right">&gt;</button>
+
+                            <div id="diaryPage" class="book-page diary-page">
+                                <div class="diary-date-header">
+                                    <span id="diaryDate" class="date-large">2026.02.11</span>
+                                    <div class="diary-weather-box" id="diaryWeatherDisplay">
+                                        <span>☀</span>
+                                    </div>
+                                </div>
+                                <div class="diary-daily-info">
+                                    <p>出来事: <span id="diaryEventDisplay">...</span></p>
+                                    <p>予定: <span id="diaryPlanDisplay">...</span></p>
+                                </div>
+                                <div class="diary-body-lines">
+                                    <div id="diaryContentDisplay" class="handwritten-text">
+                                        <!-- Content goes here -->
+                                    </div>
+                                </div>
+                                <div class="diary-footer">
+                                    <span id="diaryChars">Me & Friend</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- close profile-sheet -->
+        </section> <!-- close book-container -->
+    </div> <!-- close #app -->
+
+    <!-- QR library removed: using text copy & share instead -->
+
+    <!-- Profile Exchange Modal (Heisei Style) -->
+    <div id="exchangeModal" class="overlay hidden">
+        <div class="profile-card-modal glass-card exchange-modal-content">
+            <div class="modal-header">
+                <span class="sticker-deco">🤝 プロフ交換 (Exchange)</span>
+                <button id="closeExchangeBtn" class="btn-cancel">×</button>
+            </div>
+
+            <div class="exchange-tabs">
+                <button id="tabExport" class="tab-btn active">書き出し (Export)</button>
+                <button id="tabImport" class="tab-btn">読み込み (Import)</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Export View -->
+                <div id="viewExport" class="exchange-view">
+                    <p class="pixel-text">このテキストを友達に送ってね！<br>(Send this text to your friend!)</p>
+                    <div class="share-text-box">
+                        <textarea id="exportDataOutput" class="data-input-area" readonly
+                            style="height:80px; font-size:11px; background:rgba(255,255,255,0.05); color:#8be9fd;"></textarea>
+                    </div>
+                    <div style="display:flex; gap:10px; margin-top:10px;">
+                        <button id="copyProfileBtn" class="btn-primary" style="flex:1;">📋 コピー (Copy)</button>
+                        <button id="shareProfileBtn" class="btn-primary"
+                            style="flex:1; background:var(--deco-green);">📤 共有 (Share)</button>
+                    </div>
+                    <p class="small-note" id="copyStatus" style="margin-top:8px;"></p>
+                </div>
+
+                <!-- Import View -->
+                <div id="viewImport" class="exchange-view hidden">
+                    <p class="pixel-text">友達のデータを貼り付けてね！<br>(Paste friend's data!)</p>
+                    <textarea id="importDataInput" class="data-input-area"
+                        placeholder='{"name": "...", ...}'></textarea>
+                    <button id="importProfileBtn" class="btn-primary pulse-anim">
+                        友達帳に追加！ (Add Friend)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shinri Test Modal -->
+    <div id="testModal" class="overlay hidden">
+        <div class="profile-card-modal glass-card" style="max-width: 400px; text-align:center;">
+            <div class="modal-header">
+                <span class="sticker-deco">心理テスト</span>
+                <button id="closeTestBtn" class="btn-cancel">×</button>
+            </div>
+            <div class="modal-body">
+                <p id="testQuestion" style="font-weight:bold; margin-bottom:15px;"></p>
+                <div id="testOptions" style="display:flex; flex-direction:column; gap:10px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal (Netlify Forms) -->
+    <div id="feedbackModal" class="overlay hidden">
+        <div class="profile-card-modal glass-card" style="max-width: 450px;">
+            <div class="modal-header">
+                <span class="sticker-deco">📮 フィードバック送信</span>
+                <button id="closeFeedbackBtn" class="btn-cancel">×</button>
+            </div>
+            <div class="modal-body">
+                <p class="small-text" style="color:var(--text-color); margin-bottom:10px;">
+                    バグ報告や改善要望を教えてね！<br>
+                    (メールソフトが起動します)
+                </p>
+                <form action="mailto:your-email@example.com" method="post" enctype="text/plain" id="feedbackForm">
+
+                    <div class="field-row">
+                        <input type="text" name="name" id="feedbackName" placeholder="お名前 (ニックネーム)" class="form-input"
+                            style="width:100%;">
+                    </div>
+                    <div class="field-row" style="margin-top:10px;">
+                        <textarea name="message" id="feedbackMessage" placeholder="メッセージを入力してね (必須)"
+                            class="data-input-area" style="height:100px; width:100%;" required></textarea>
+                    </div>
+
+                    <button type="submit" id="sendFeedbackBtn" class="btn-primary" style="width:100%; margin-top:15px;">
+                        メールで送信 (Send via Mail)
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="overlay hidden">
+        <div class="profile-card-modal glass-card" style="max-width: 450px; max-height: 85vh; overflow-y: auto;">
+            <div class="modal-header">
+                <span class="sticker-deco">⚙ せってい (Settings)</span>
+                <button id="closeSettingsBtn" class="btn-cancel">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-list">
+                    <div class="settings-item">
+                        <label>お名前</label>
+                        <input type="text" id="settingName" class="form-input" maxlength="10">
+                    </div>
+                    <div class="settings-item">
+                        <label>MBTI</label>
+                        <select id="settingMBTI" class="form-input">
+                            <optgroup label="分析家">
+                                <option value="INTJ">INTJ</option>
+                                <option value="INTP">INTP</option>
+                                <option value="ENTJ">ENTJ</option>
+                                <option value="ENTP">ENTP</option>
+                            </optgroup>
+                            <optgroup label="外交官">
+                                <option value="INFJ">INFJ</option>
+                                <option value="INFP">INFP</option>
+                                <option value="ENFJ">ENFJ</option>
+                                <option value="ENFP">ENFP</option>
+                            </optgroup>
+                            <optgroup label="番人">
+                                <option value="ISTJ">ISTJ</option>
+                                <option value="ISFJ">ISFJ</option>
+                                <option value="ESTJ">ESTJ</option>
+                                <option value="ESFJ">ESFJ</option>
+                            </optgroup>
+                            <optgroup label="探検家">
+                                <option value="ISTP">ISTP</option>
+                                <option value="ISFP">ISFP</option>
+                                <option value="ESTP">ESTP</option>
+                                <option value="ESFP">ESFP</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>血液型</label>
+                        <select id="settingBlood" class="form-input">
+                            <option value="A">A型</option>
+                            <option value="B">B型</option>
+                            <option value="O">O型</option>
+                            <option value="AB">AB型</option>
+                            <option value="?">不明</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>星座</label>
+                        <select id="settingSign" class="form-input">
+                            <option value="aries">おひつじ座</option>
+                            <option value="taurus">おうし座</option>
+                            <option value="gemini">ふたご座</option>
+                            <option value="cancer">かに座</option>
+                            <option value="leo">しし座</option>
+                            <option value="virgo">おとめ座</option>
+                            <option value="libra">てんびん座</option>
+                            <option value="scorpio">さそり座</option>
+                            <option value="sagittarius">いて座</option>
+                            <option value="capricorn">やぎ座</option>
+                            <option value="aquarius">みずがめ座</option>
+                            <option value="pisces">うお座</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>マイブーム</label>
+                        <input type="text" id="settingHobby" class="form-input" maxlength="15">
+                    </div>
+                    <div class="settings-item">
+                        <label>深海での役割</label>
+                        <select id="settingRole" class="form-input">
+                            <option value="leader">リーダー (赤)</option>
+                            <option value="idol">アイドル (ピンク)</option>
+                            <option value="healer">癒やし係 (緑)</option>
+                            <option value="brain">参謀 (青)</option>
+                            <option value="joker">道化師 (黄)</option>
+                            <option value="shadow">裏ボス (黒)</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>今の気分</label>
+                        <select id="settingMood" class="form-input">
+                            <option value="fine">絶好調！</option>
+                            <option value="sleepy">ねむい...</option>
+                            <option value="hungry">お腹すいた</option>
+                            <option value="floating">漂流中</option>
+                            <option value="crushed">水圧につぶされそう</option>
+                        </select>
+                    </div>
+                    <div class="settings-item">
+                        <label>ひとこと</label>
+                        <input type="text" id="settingMessage" class="form-input" maxlength="20">
+                    </div>
+                    <div class="settings-group">
+                        <div class="settings-item">
+                            <label>筆跡スタイル</label>
+                            <span id="settingFontName" style="font-size:0.85rem; color:var(--accent-neon);">---</span>
+                            <button id="reDiagnoseBtn" class="btn-sm" style="margin-top:5px; width:100%;">🖋
+                                筆跡を再診断する</button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group"
+                        style="margin-top:15px; border-top:1px dashed #6272a4; padding-top:10px;">
+                        <button id="openBackupBtn" class="btn-sm"
+                            style="width:100%; background:#bd93f9; color:#282a36;">💾 データの引継ぎ (Backup)</button>
+                    </div>
+
+                    <button id="saveSettingsBtn" class="btn-primary" style="width:100%; margin-top:15px;">保存する
+                        (Save)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Backup/Restore Modal -->
+        <div id="backupModal" class="overlay hidden">
+            <div class="profile-card-modal glass-card" style="max-width: 450px;">
+                <div class="modal-header">
+                    <span class="sticker-deco">データの引継ぎ</span>
+                    <button id="closeBackupBtn" class="btn-cancel">×</button>
+                </div>
+                <div class="modal-body" style="text-align:center;">
+                    <p style="font-size:0.9rem; color:#ccc; margin-bottom:15px;">
+                        機種変更や別のPCで使うときに利用してください。<br>
+                        <span style="color:#ff5555;">※復元すると現在のデータは上書きされます！</span>
+                    </p>
+
+                    <!-- Export -->
+                    <div style="margin-bottom:20px;">
+                        <h4 style="color:var(--deco-green);">① データを保存する (Export)</h4>
+                        <p style="font-size:0.8rem;">このコードをコピーして、新しい端末に送ってください。</p>
+                        <textarea id="backupExportOutput" class="data-input-area" readonly
+                            style="height:80px;"></textarea>
+                        <button id="copyBackupBtn" class="btn-primary" style="width:100%;">コピーする</button>
+                        <p id="backupCopyStatus" style="font-size:0.8rem; height:1.2em; margin-top:5px;"></p>
+                    </div>
+
+                    <!-- Import -->
+                    <div style="border-top:1px dashed #6272a4; padding-top:15px;">
+                        <h4 style="color:var(--deco-pink);">② データを復元する (Import)</h4>
+                        <p style="font-size:0.8rem;">保存したコードをここに貼り付けてください。</p>
+                        <textarea id="backupImportInput" class="data-input-area" placeholder="ここに貼り付け"
+                            style="height:80px;"></textarea>
+                        <button id="runRestoreBtn" class="btn-primary"
+                            style="width:100%; background:#ff5555;">データを復元する</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

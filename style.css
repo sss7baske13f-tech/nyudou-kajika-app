@@ -1,0 +1,1271 @@
+@import 'heisei_style.css';
+@import url('https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Yuji+Syuku&family=Zen+Maru+Gothic:wght@400;700&family=Yomogi&family=Potta+One&family=Klee+One&family=Kaisei+Decol&display=swap');
+
+:root {
+    /* Deep Sea Palette */
+    --bg-deep: #050a18;
+    --bg-mid: #101835;
+    --accent-glow: #ff79c6;
+    /* Glow Pink */
+    --accent-neon: #8be9fd;
+    /* Neon Cyan */
+    --text-main: #f8f8f2;
+    --text-muted: #6272a4;
+
+    /* Decoration Colors (Heisei Style) */
+    --deco-gold: #f1fa8c;
+    --deco-purple: #bd93f9;
+    --deco-green: #50fa7b;
+    --deco-pink: #ff79c6;
+    --deco-blue: #8be9fd;
+    --paper-white: #fdfbf7;
+    --ink-color: #2b3a55;
+
+    /* Layout */
+    --card-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --radius: 16px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', 'Zen Maru Gothic', sans-serif;
+    background: radial-gradient(circle at center, var(--bg-mid) 0%, var(--bg-deep) 100%);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Center Vertically too */
+}
+
+/* Base Layout */
+#app {
+    width: 100%;
+    max-width: 480px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+}
+
+/* Utilities */
+.hidden {
+    display: none !important;
+}
+
+.full-height {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Glassmorphism Classes */
+.glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Header & Titles */
+.app-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.app-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--accent-neon), var(--accent-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px;
+    color: var(--deco-gold);
+}
+
+/* Forms */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--accent-neon);
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.2);
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: var(--accent-glow);
+    box-shadow: 0 0 10px rgba(255, 121, 198, 0.3);
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-glow) 0%, var(--deco-purple) 100%);
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    border-radius: 40px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 10px 20px rgba(255, 121, 198, 0.3);
+    width: 100%;
+    margin-top: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(255, 121, 198, 0.5);
+}
+
+.btn-sm {
+    background: transparent;
+    border: 2px solid var(--text-muted);
+    color: var(--text-muted);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+
+.btn-sm:hover {
+    border-color: var(--accent-neon);
+    color: var(--accent-neon);
+}
+
+.btn-mini {
+    background: var(--deco-gold);
+    border: 1px solid var(--ink-color);
+    color: var(--ink-color);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-mini:hover {
+    filter: brightness(0.9);
+}
+
+.form-input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* --- Profile Book Binder Style --- */
+.book-container {
+    background: var(--paper-white);
+    color: var(--ink-color);
+    border-radius: 4px 16px 16px 4px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    min-height: 500px;
+    border-left: 12px solid var(--deco-purple);
+    /* Binder spine color */
+    transform: rotate(-1deg);
+    animation: slideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Binder Rings */
+.binder-ring {
+    position: absolute;
+    left: -18px;
+    width: 30px;
+    height: 12px;
+    background: #ccc;
+    border-radius: 6px;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.binder-ring:nth-child(1) {
+    top: 40px;
+}
+
+.binder-ring:nth-child(2) {
+    top: 50%;
+}
+
+.binder-ring:nth-child(3) {
+    bottom: 40px;
+}
+
+/* Profile Sheet Layout */
+.profile-sheet {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 2px dashed #e0d0e0;
+    padding: 15px;
+    background:
+        repeating-linear-gradient(to bottom,
+            transparent,
+            transparent 29px,
+            #eef1f5 30px);
+}
+
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--deco-purple);
+    padding-bottom: 5px;
+}
+
+.sticker-deco {
+    background: var(--deco-gold);
+    color: var(--bg-deep);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    transform: rotate(-3deg);
+    border: 1px solid #000;
+}
+
+.date-stamp {
+    font-family: 'Courier New', monospace;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+/* Visuals */
+.char-visual {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.polaroid {
+    background: white;
+    padding: 8px 8px 25px 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    transform: rotate(-2deg);
+    max-width: 140px;
+    border: 1px solid #ddd;
+}
+
+.polaroid img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid #eee;
+}
+
+.sticker-badge {
+    background: var(--deco-green);
+    color: var(--bg-deep);
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-weight: 800;
+    font-size: 0.7rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: rotate(10deg);
+    border: 2px solid white;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* --- Heisei Visual Enhancements --- */
+
+/* Puri-kura Frame */
+.puri-frame {
+    border: 4px solid var(--deco-pink);
+    border-radius: 6px;
+    padding: 3px;
+    background: white;
+    box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.puri-frame::after {
+    content: "★LOVE★";
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.6rem;
+    color: var(--deco-pink);
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0 3px;
+    border-radius: 4px;
+}
+
+/* Background Pattern */
+body {
+    background-color: #e0f7fa;
+    background-image: radial-gradient(var(--deco-green) 15%, transparent 16%),
+        radial-gradient(var(--deco-pink) 15%, transparent 16%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    font-family: 'Outfit', 'Zen Maru Gothic', sans-serif;
+    color: var(--ink-color);
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* Allow body scroll */
+}
+
+/* Affinity Hearts */
+.affinity-meter {
+    color: var(--deco-pink);
+    font-size: 0.8rem;
+    margin-top: 2px;
+    letter-spacing: 1px;
+}
+
+/* Exchange Button */
+.btn-exchange {
+    background: var(--deco-pink);
+    color: white;
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--deco-pink);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+.btn-exchange:hover {
+    transform: scale(1.05);
+}
+
+.btn-exchange:disabled {
+    background: #ccc;
+    box-shadow: 0 0 0 2px #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Friend Card Update */
+.friend-card {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: 0.2s;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- Phase 4 Styles --- */
+
+/* Privacy Toggle */
+.privacy-toggle {
+    font-size: 0.8rem;
+    color: #666;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.lock-icon {
+    font-size: 0.8rem;
+    margin-left: 5px;
+    color: #aaa;
+}
+
+/* Diary Paper Modal */
+.diary-paper-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    border: 2px dashed var(--deco-blue);
+    position: relative;
+    background-image: linear-gradient(#e1f5fe 1px, transparent 1px);
+    background-size: 100% 1.5em;
+    /* Lined paper */
+    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+
+.question-badge {
+    background: var(--deco-pink);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+#questionPrompt {
+    font-weight: bold;
+    margin: 5px 0 10px 0;
+    color: var(--deco-blue);
+}
+
+#diaryInput {
+    width: 100%;
+    height: 120px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.5;
+    resize: none;
+}
+
+/* Toolbar */
+.toolbar {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.font-selector,
+.sticker-selector {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.tool-btn,
+.sticker-btn {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 2px 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.sticker-btn:hover {
+    background: #e0f7fa;
+}
+
+/* Form Row Layout */
+.form-group-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-group-row .form-group {
+    flex: 1;
+}
+
+/* --- Phase 5: Friend Profile Modal --- */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.profile-card-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 380px;
+    border: 4px solid var(--deco-pink);
+    box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    background-image:
+        radial-gradient(circle, #ffebee 2px, transparent 2.5px),
+        radial-gradient(circle, #e1f5fe 2px, transparent 2.5px);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.fp-name {
+    font-size: 1.5rem;
+    color: var(--deco-blue);
+    margin: 5px 0;
+    border-bottom: 2px dashed #ddd;
+}
+
+.fp-mbti {
+    font-size: 0.9rem;
+    color: #666;
+    background: #eee;
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.fp-details p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+    border-bottom: 1px dotted #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+.polaroid {
+    background: white;
+    padding: 10px 10px 30px 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transform: rotate(-3deg);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.polaroid img {
+    width: 100%;
+    max-width: 120px;
+    border: 1px solid #ddd;
+}
+
+.affinity-display {
+    margin-top: 15px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 5px;
+    border-radius: 8px;
+    border: 2px solid var(--deco-pink);
+}
+
+.btn-cancel {
+    background: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- Themes --- */
+/* Default (Blue) is base style */
+
+/* Coral Theme (Pink/Orange) */
+body.theme-coral {
+    background-color: #ffebee;
+    background-image: radial-gradient(#ffccbc 15%, transparent 16%);
+    --deco-blue: #ff7043;
+    /* Re-map blue to orange */
+}
+
+/* Abyss Theme (Dark) */
+body.theme-abyss {
+    background-color: #263238;
+    color: #eceff1;
+    background-image: radial-gradient(#37474f 15%, transparent 16%);
+    --ink-color: #eceff1;
+}
+
+body.theme-abyss .book-container {
+    background: #37474f;
+    border-color: #546e7a;
+}
+
+body.theme-abyss input,
+body.theme-abyss textarea {
+    background: #455a64;
+    color: white;
+}
+
+/* Handwritten Fields */
+.handwritten-area {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: var(--ink-color);
+}
+
+/* Phase 6: Diary Header */
+.diary-header-inputs {
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #ccc;
+    padding-bottom: 10px;
+}
+
+.dh-row {
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.dh-row label {
+    margin-right: 10px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.dh-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background: transparent;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.diary-entry-header {
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted rgba(0, 0, 0, 0.1);
+}
+
+.weather-icon {
+    margin-left: 5px;
+}
+
+.field-row {
+    display: flex;
+    align-items: baseline;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 2px;
+}
+
+.label {
+    font-size: 0.8rem;
+    color: #999;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.value {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.memo-box {
+    border: 2px solid var(--deco-purple);
+    border-radius: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    position: relative;
+    margin-top: 5px;
+}
+
+.memo-box.pink-bg {
+    border-color: var(--accent-glow);
+    background: #fff0f5;
+}
+
+.label-sm {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: white;
+    padding: 0 5px;
+    font-size: 0.7rem;
+    color: #888;
+    border-radius: 4px;
+}
+
+.value-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.sheet-footer {
+    margin-top: auto;
+    text-align: right;
+    padding-top: 10px;
+}
+
+/* Animation */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) rotate(5deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(-1deg);
+    }
+}
+
+/* --- Tabs --- */
+.notebook-tabs {
+    display: flex;
+    gap: 5px;
+    position: absolute;
+    right: -12px;
+    top: 50px;
+    flex-direction: column;
+    z-index: 5;
+}
+
+.tab {
+    background: var(--deco-purple);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-weight: bold;
+    border-radius: 0 10px 10px 0;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+    width: 60px;
+    /* Label rotated or keep short */
+    height: 80px;
+    writing-mode: vertical-rl;
+    /* Vertical Text */
+    text-orientation: mixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.tab:hover {
+    transform: translateX(5px);
+    opacity: 1;
+}
+
+.tab.active {
+    background: var(--accent-glow);
+    width: 70px;
+    opacity: 1;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Tab Content Logic */
+.tab-content {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+}
+
+.tab-content.active {
+    display: flex;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* --- Friend List --- */
+.btn-xs {
+    background: transparent;
+    border: 1px dashed var(--ink-color);
+    color: var(--ink-color);
+    padding: 4px 10px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-xs:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* --- Book UI Metaphor (Phase 7) --- */
+
+.book-spread-container {
+    position: relative;
+    height: 100%;
+    min-height: 450px;
+    perspective: 1500px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--deco-purple);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 20;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn:hover {
+    background: var(--accent-glow);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn.left {
+    left: -30px;
+}
+
+.nav-btn.right {
+    right: -30px;
+}
+
+/* Book Pages */
+.book-spread {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    gap: 0;
+    /* No gap, they touch like a book spine */
+}
+
+.book-page {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ddd;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.left-page {
+    border-radius: 8px 0 0 8px;
+    border-right: 1px solid #eee;
+    background-image: linear-gradient(to right, #fff 95%, #e0e0e0 100%);
+    /* Shadow near spine */
+}
+
+.right-page {
+    border-radius: 0 8px 8px 0;
+    border-left: 1px solid #eee;
+    background-image: linear-gradient(to left, #fff 95%, #e0e0e0 100%);
+    /* Shadow near spine */
+}
+
+/* Index Page */
+.index-page {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.index-group {
+    margin-bottom: 20px;
+    text-align: left;
+    border: 2px solid var(--deco-purple);
+    border-radius: 8px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.index-group h4 {
+    border-bottom: 2px dashed var(--deco-purple);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: var(--deco-blue);
+}
+
+.index-list {
+    list-style: none;
+    padding: 0;
+}
+
+.index-list li {
+    padding: 8px;
+    border-bottom: 1px dotted #ccc;
+    cursor: pointer;
+    transition: 0.2s;
+    font-weight: bold;
+}
+
+.index-list li:hover {
+    background: #e1f5fe;
+    padding-left: 15px;
+    color: var(--accent-glow);
+}
+
+/* Spread Content Styles */
+.book-page .char-visual.large {
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.book-page .char-visual.large .polaroid {
+    transform: rotate(-2deg);
+    max-width: 160px;
+}
+
+.book-page h2 {
+    font-size: 1.8rem;
+    color: var(--ink-color);
+    border-bottom: 2px solid var(--deco-green);
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.pill-badge {
+    display: inline-block;
+    background: #eee;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    margin: 5px;
+    color: #555;
+    border: 1px solid #ccc;
+}
+
+.notebook-lines {
+    background-image: linear-gradient(#e1f5fe 1px, transparent 1px);
+    background-size: 100% 2rem;
+    line-height: 2rem;
+    padding-top: 5px;
+}
+
+.handwritten {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    color: var(--ink-color);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.message-box {
+    margin-top: 15px;
+    background: #fff0f5;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px dashed var(--accent-glow);
+    transform: rotate(1deg);
+}
+
+.action-area {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.page-number {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    font-family: 'Courier New', monospace;
+    color: #999;
+}
+
+/* Diary Single Page Mode */
+.single-page-mode .book-page {
+    border-radius: 8px;
+    max-width: 420px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 500px;
+}
+
+.diary-date-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 4px double var(--deco-blue);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.date-large {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ink-color);
+    font-family: 'Courier New', monospace;
+}
+
+.diary-weather-box {
+    font-size: 2rem;
+}
+
+.diary-daily-info {
+    background: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.diary-body-lines {
+    background-image: linear-gradient(#ccc 1px, transparent 1px);
+    background-size: 100% 2rem;
+    line-height: 2rem;
+    min-height: 200px;
+}
+
+.handwritten-text {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    font-size: 1.1rem;
+    white-space: pre-wrap;
+    padding: 0 5px;
+}
+
+.diary-footer {
+    text-align: right;
+    margin-top: 20px;
+    font-style: italic;
+    color: #888;
+}
+
+/* --- Overlays --- */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    border-radius: 16px;
+    animation: fadeIn 0.3s;
+}
+
+.overlay-card {
+    background: var(--paper-white);
+    padding: 20px;
+    border: 2px dashed var(--deco-purple);
+    border-radius: 12px;
+    width: 80%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-card input,
+.overlay-card select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.overlay-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn-cancel {
+    border: none;
+    background: transparent;
+    color: #999;
+    cursor: pointer;
+}
+
+.btn-primary-sm {
+    background: var(--deco-purple);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.empty-state {
+    text-align: center;
+    color: #aaa;
+    margin-top: 50px;
+    font-size: 0.9rem;
+}
+
+/* Bubbles (Keep existing) */
+.bubble-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -50px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: rise 10s infinite ease-in;
+}
+
+@keyframes rise {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.3;
+    }
+
+    80% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translateY(-120vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Settings Modal */
+.settings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.settings-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
+}
+
+.settings-item label {
+    font-size: 0.75rem;
+    color: var(--accent-neon);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.settings-item .form-input {
+    width: 100%;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.settings-item .form-input:focus {
+    border-color: var(--accent-glow);
+}
+
+.settings-item select.form-input {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%238be9fd' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+/* Share text box */
+.share-text-box {
+    margin-top: 10px;
+}
+
+/* Floating Bug Report Button */
+.floating-bug-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-glow);
+    background: rgba(5, 10, 24, 0.9);
+    color: #fff;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(255, 121, 198, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.floating-bug-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 20px rgba(255, 121, 198, 0.5);
+}
+
+.floating-bug-btn:active {
+    transform: scale(0.95);
+}

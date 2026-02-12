@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深海プロフィール帳 - QRコード</title>
+    <style>
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #050a18 0%, #101835 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            color: #8be9fd;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(139, 233, 253, 0.5);
+        }
+
+        .qr-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        img {
+            display: block;
+            width: 250px;
+            height: 250px;
+        }
+
+        p {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+
+        a {
+            color: #ff79c6;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎉 公開成功！</h1>
+        <div class="qr-box">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://698cb065365508c8f74c98c2--fluffy-trifle-3c0a54.netlify.app/"
+                alt="QR Code">
+        </div>
+        <p>スマホのカメラで読み取ってください📱</p>
+        <p><a href="https://698cb065365508c8f74c98c2--fluffy-trifle-3c0a54.netlify.app/"
+                target="_blank">クリックしてサイトを開く</a></p>
+    </div>
+</body>
+
+</html>
