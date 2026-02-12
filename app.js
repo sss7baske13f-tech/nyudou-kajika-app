@@ -1065,9 +1065,30 @@ function generateShareText() {
         message: state.myProfile.message,
         font: state.myProfile.font,
         id: Date.now().toString()
+        // Removed unnecessary fields to keep QR code small
     };
 
-    exportDataOutput.value = JSON.stringify(exportData);
+    const jsonString = JSON.stringify(exportData);
+    exportDataOutput.value = jsonString;
+
+    // Generate QR Code
+    const qrContainer = document.getElementById('qrcode');
+    if (qrContainer) {
+        qrContainer.innerHTML = ""; // Clear previous
+        try {
+            new QRCode(qrContainer, {
+                text: jsonString,
+                width: 128,
+                height: 128,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.L
+            });
+        } catch (e) {
+            console.error("QR Code Generation failed:", e);
+            qrContainer.innerText = "(QR生成エラー)";
+        }
+    }
 }
 
 // Copy to clipboard
