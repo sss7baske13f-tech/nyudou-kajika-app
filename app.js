@@ -1021,8 +1021,14 @@ function createBubbles() {
 
 if (openExchangeBtn) {
     openExchangeBtn.addEventListener('click', () => {
-        exchangeModal.classList.remove('hidden');
-        generateShareText(); // Auto generate on open
+        console.log("Exchange Button Clicked");
+        const modal = document.getElementById('exchangeModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            generateShareText();
+        } else {
+            alert('Error: Exchange Modal not found');
+        }
     });
 }
 
@@ -1227,8 +1233,14 @@ function populateSettings() {
 
 if (openSettingsBtn) {
     openSettingsBtn.addEventListener('click', () => {
-        populateSettings();
-        settingsModal.classList.remove('hidden');
+        console.log("Settings Button Clicked");
+        const modal = document.getElementById('settingsModal');
+        if (modal) {
+            populateSettings();
+            modal.classList.remove('hidden');
+        } else {
+            alert('Error: Settings Modal not found');
+        }
     });
 }
 
