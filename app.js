@@ -1506,4 +1506,5 @@ window.onload = () => {
     // Init Features
     initDecoSystem();
     initTamagotchi();
+    initAudioSystem();
 };
