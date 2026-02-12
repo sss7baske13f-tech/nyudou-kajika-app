@@ -1376,3 +1376,20 @@ body.theme-abyss textarea {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     text-align: center;
 }
+
+/* QR Code */
+.qr-container {
+    margin: 15px auto;
+    padding: 10px;
+    background: white;
+    width: fit-content;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#qrcode img {
+    display: block;
+    margin: 0 auto;
+}
