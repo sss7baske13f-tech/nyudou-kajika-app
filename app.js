@@ -1020,6 +1020,7 @@ function createBubbles() {
 // --- Phase 9: Profile Exchange (V1) ---
 
 if (openExchangeBtn) {
+    console.log("Attaching listener to openExchangeBtn");
     openExchangeBtn.addEventListener('click', () => {
         console.log("Exchange Button Clicked");
         const modal = document.getElementById('exchangeModal');
@@ -1232,6 +1233,7 @@ function populateSettings() {
 }
 
 if (openSettingsBtn) {
+    console.log("Attaching listener to openSettingsBtn");
     openSettingsBtn.addEventListener('click', () => {
         console.log("Settings Button Clicked");
         const modal = document.getElementById('settingsModal');
@@ -1502,4 +1504,14 @@ window.onload = () => {
 
     createBubbles();
     console.log("Deep Sea App Phase 11 Initialized!");
+
+    // Debug Logs for Buttons
+    if (!document.getElementById('openSettingsBtn')) console.error("FATAL: openSettingsBtn NOT FOUND in DOM");
+    else console.log("SUCCESS: openSettingsBtn found in DOM");
+
+    if (!document.getElementById('openExchangeBtn')) console.error("FATAL: openExchangeBtn NOT FOUND in DOM");
+    else console.log("SUCCESS: openExchangeBtn found in DOM");
+
+    if (!document.getElementById('settingsModal')) console.error("FATAL: settingsModal NOT FOUND in DOM");
+    else console.log("SUCCESS: settingsModal found in DOM");
 };
