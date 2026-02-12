@@ -1167,7 +1167,17 @@ if (importProfileBtn) {
             // Enhance with Species info
             generateRandomDetails(newFriend); // Fill random blood/hobby
 
-            state.friends.push(newFriend);
+            // Check for duplicates
+            const existingIndex = state.friends.findIndex(f => f.id === newFriend.id);
+            if (existingIndex > -1) {
+                if (!confirm(`「${newFriend.name}」さんは既に友達にいます。\n上書きしますか？ (Overwrite?)`)) {
+                    return;
+                }
+                state.friends[existingIndex] = newFriend; // Overwrite
+            } else {
+                state.friends.push(newFriend); // Add New
+            }
+
             saveState();
 
             // UI Feedback

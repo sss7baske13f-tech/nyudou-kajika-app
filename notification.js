@@ -16,7 +16,10 @@ function showNewFriendNotification(friend) {
         <div style="text-align: center;">
             <h2 class="neon-text" style="color:#ff79c6; margin-bottom:10px;">✨ NEW FRIEND! ✨</h2>
             <div class="polaroid" style="transform: rotate(-3deg); margin: 10px auto; width: 120px;">
-                <img src="${friend.backgroundImage}" style="width:100%; display:block;">
+                ${friend.backgroundImage.includes('linear-gradient')
+            ? `<div style="width:100%; height:120px; background:${friend.backgroundImage};"></div>`
+            : `<img src="${friend.backgroundImage}" style="width:100%; display:block;">`
+        }
             </div>
             <h3 style="font-family: var(--font-hand); font-size: 1.5rem;">
                 ${friend.name}
