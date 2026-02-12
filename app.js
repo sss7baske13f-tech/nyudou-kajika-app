@@ -1502,4 +1502,8 @@ window.onload = () => {
 
     createBubbles();
     console.log("Deep Sea App Phase 11 Initialized!");
+
+    // Init Features
+    initDecoSystem();
+    initTamagotchi();
 };
