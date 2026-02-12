@@ -1502,14 +1502,4 @@ window.onload = () => {
 
     createBubbles();
     console.log("Deep Sea App Phase 11 Initialized!");
-
-    // Debug Logs for Buttons
-    if (!document.getElementById('openSettingsBtn')) console.error("FATAL: openSettingsBtn NOT FOUND in DOM");
-    else console.log("SUCCESS: openSettingsBtn found in DOM");
-
-    if (!document.getElementById('openExchangeBtn')) console.error("FATAL: openExchangeBtn NOT FOUND in DOM");
-    else console.log("SUCCESS: openExchangeBtn found in DOM");
-
-    if (!document.getElementById('settingsModal')) console.error("FATAL: settingsModal NOT FOUND in DOM");
-    else console.log("SUCCESS: settingsModal found in DOM");
 };
