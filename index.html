@@ -273,6 +273,43 @@
                                 </button>
                             </div>
 
+                            <!-- Tamagotchi Widget -->
+                            <div id="tamagotchiWidget" class="glass-panel" style="margin-top: 15px; padding: 10px;">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
+                                    <span style="font-weight: bold;">パートナーの様子</span>
+                                    <span id="tamaStatusIcon" style="font-size: 1.5rem;">🙂</span>
+                                </div>
+                                <div style="margin-bottom: 5px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                        <span>おなか (Hunger)</span>
+                                        <span>❤️</span>
+                                    </div>
+                                    <div
+                                        style="width: 100%; background: rgba(0,0,0,0.2); height: 8px; border-radius: 4px;">
+                                        <div id="tamaHungerBar"
+                                            style="width: 100%; background: #ff79c6; height: 100%; border-radius: 4px; transition: width 0.5s;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="margin-bottom: 10px;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+                                        <span>なかよし (Love)</span>
+                                        <span>✨</span>
+                                    </div>
+                                    <div
+                                        style="width: 100%; background: rgba(0,0,0,0.2); height: 8px; border-radius: 4px;">
+                                        <div id="tamaAffectionBar"
+                                            style="width: 50%; background: #bd93f9; height: 100%; border-radius: 4px; transition: width 0.5s;">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 10px;">
+                                    <button class="btn-sm" onclick="feedTamagotchi()" style="flex:1;">ご飯あげる 🍖</button>
+                                    <button class="btn-sm" onclick="playTamagotchi()" style="flex:1;">遊ぶ 🎾</button>
+                                </div>
+                            </div>
+
                             <!-- Ranking -->
                             <div class="heisei-section ranking-section">
                                 <h3 class="retro-h3">👑 My Best 3 👑</h3>
@@ -295,6 +332,15 @@
                                             <option value="">(None)</option>
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- BBS / Footprints -->
+                            <div class="heisei-section bbs-section" style="margin-top: 20px;">
+                                <h3 class="retro-h3">👣 足あと (BBS) 👣</h3>
+                                <div id="bbsContainer" class="bbs-box glass-panel"
+                                    style="max-height: 200px; overflow-y: auto; padding: 10px;">
+                                    <!-- Logs go here -->
                                 </div>
                             </div>
 
@@ -891,6 +937,7 @@
     <script src="deco.js"></script>
     <script src="tamagotchi.js"></script>
     <script src="audio.js"></script>
+    <script src="bbs.js"></script>
     <script src="app.js"></script>
 </body>
 

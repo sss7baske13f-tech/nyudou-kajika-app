@@ -1312,7 +1312,7 @@ body.theme-abyss textarea {
 .floating-bug-btn {
     position: fixed;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     width: 48px;
     height: 48px;
     border-radius: 50%;
@@ -1336,4 +1336,27 @@ body.theme-abyss textarea {
 
 .floating-bug-btn:active {
     transform: scale(0.95);
+}
+
+/* BBS Styles */
+.bbs-item {
+    border-bottom: 1px dashed var(--glass-border);
+    padding: 5px 0;
+    font-size: 0.9rem;
+}
+
+.bbs-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--accent-blue);
+}
+
+.bbs-name {
+    font-weight: bold;
+}
+
+.bbs-msg {
+    margin-top: 2px;
+    color: #333;
 }
