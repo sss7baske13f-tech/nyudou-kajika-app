@@ -1360,3 +1360,19 @@ body.theme-abyss textarea {
     margin-top: 2px;
     color: #333;
 }
+
+/* Notification Overlay */
+.notification-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid var(--accent-glow);
+    border-radius: 20px;
+    z-index: 9999;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}

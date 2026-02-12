@@ -1149,9 +1149,13 @@ if (importProfileBtn) {
             state.friends.push(newFriend);
             saveState();
 
-            alert(`${newFriend.name}さんが友達に追加されました！\n(Friend Added!)`);
+            // UI Feedback
+            // alert(`${newFriend.name}さんが友達に追加されました！\n(Friend Added!)`); // Old
+            showNewFriendNotification(newFriend); // New Visual Notification
+
             exchangeModal.classList.add('hidden');
             renderFriendBook();
+            renderProfile(); // Update Ranking Options too!
             importDataInput.value = ""; // Clear
 
         } catch (e) {
