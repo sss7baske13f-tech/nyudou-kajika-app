@@ -992,521 +992,524 @@ if (nextDiaryBtn) {
             renderDiaryBook();
         }
     });
+}
 
-    // Helper for "Index Page" clicks (Global delegation or wired in render)
-    // In renderFriendIndex, I assigned onclick.
+if (nextDayBtn) nextDayBtn.addEventListener('click', generateSoloEntry);
 
-    // Bubbles
-    function createBubbles() {
-        const bubbleContainer = document.getElementById('bubbleContainer');
-        for (let i = 0; i < 15; i++) {
-            const bubble = document.createElement('div');
-            bubble.className = 'bubble';
-            const size = Math.random() * 40 + 10 + 'px';
-            bubble.style.width = size;
-            bubble.style.height = size;
-            bubble.style.left = Math.random() * 100 + 'vw';
-            bubble.style.animationDelay = Math.random() * 8 + 's';
-            bubble.style.animationDuration = Math.random() * 10 + 5 + 's';
-            bubbleContainer.appendChild(bubble);
+// Helper for "Index Page" clicks (Global delegation or wired in render)
+// In renderFriendIndex, I assigned onclick.
+
+// Bubbles
+function createBubbles() {
+    const bubbleContainer = document.getElementById('bubbleContainer');
+    for (let i = 0; i < 15; i++) {
+        const bubble = document.createElement('div');
+        bubble.className = 'bubble';
+        const size = Math.random() * 40 + 10 + 'px';
+        bubble.style.width = size;
+        bubble.style.height = size;
+        bubble.style.left = Math.random() * 100 + 'vw';
+        bubble.style.animationDelay = Math.random() * 8 + 's';
+        bubble.style.animationDuration = Math.random() * 10 + 5 + 's';
+        bubbleContainer.appendChild(bubble);
+    }
+}
+
+// --- Phase 9: Profile Exchange (V1) ---
+
+if (openExchangeBtn) {
+    console.log("Attaching listener to openExchangeBtn");
+    openExchangeBtn.addEventListener('click', () => {
+        console.log("Exchange Button Clicked");
+        const modal = document.getElementById('exchangeModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            generateShareText();
+        } else {
+            alert('Error: Exchange Modal not found');
         }
-    }
+    });
+}
 
-    // --- Phase 9: Profile Exchange (V1) ---
+if (closeExchangeBtn) {
+    closeExchangeBtn.addEventListener('click', () => {
+        exchangeModal.classList.add('hidden');
+    });
+}
 
-    if (openExchangeBtn) {
-        console.log("Attaching listener to openExchangeBtn");
-        openExchangeBtn.addEventListener('click', () => {
-            console.log("Exchange Button Clicked");
-            const modal = document.getElementById('exchangeModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-                generateShareText();
-            } else {
-                alert('Error: Exchange Modal not found');
-            }
-        });
-    }
+if (tabExport) {
+    tabExport.addEventListener('click', () => {
+        tabExport.classList.add('active');
+        tabImport.classList.remove('active');
+        viewExport.classList.remove('hidden');
+        viewImport.classList.add('hidden');
+    });
+}
 
-    if (closeExchangeBtn) {
-        closeExchangeBtn.addEventListener('click', () => {
-            exchangeModal.classList.add('hidden');
-        });
-    }
+if (tabImport) {
+    tabImport.addEventListener('click', () => {
+        tabImport.classList.add('active');
+        tabExport.classList.remove('active');
+        viewImport.classList.remove('hidden');
+        viewExport.classList.add('hidden');
+    });
+}
 
-    if (tabExport) {
-        tabExport.addEventListener('click', () => {
-            tabExport.classList.add('active');
-            tabImport.classList.remove('active');
-            viewExport.classList.remove('hidden');
-            viewImport.classList.add('hidden');
-        });
-    }
+function generateShareText() {
+    const exportDataOutput = document.getElementById('exportDataOutput');
+    if (!exportDataOutput || !state.myProfile) return;
 
-    if (tabImport) {
-        tabImport.addEventListener('click', () => {
-            tabImport.classList.add('active');
-            tabExport.classList.remove('active');
-            viewImport.classList.remove('hidden');
-            viewExport.classList.add('hidden');
-        });
-    }
+    const exportData = {
+        name: state.myProfile.name,
+        mbti: state.myProfile.mbti,
+        message: state.myProfile.message,
+        font: state.myProfile.font,
+        id: Date.now().toString()
+    };
 
-    function generateShareText() {
+    exportDataOutput.value = JSON.stringify(exportData);
+}
+
+// Copy to clipboard
+const copyProfileBtn = document.getElementById('copyProfileBtn');
+const shareProfileBtn = document.getElementById('shareProfileBtn');
+const copyStatus = document.getElementById('copyStatus');
+
+if (copyProfileBtn) {
+    copyProfileBtn.addEventListener('click', async () => {
         const exportDataOutput = document.getElementById('exportDataOutput');
-        if (!exportDataOutput || !state.myProfile) return;
+        if (!exportDataOutput) return;
+        try {
+            await navigator.clipboard.writeText(exportDataOutput.value);
+            copyStatus.innerText = '\u2705 \u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff01(Copied!)';
+            copyStatus.style.color = '#50fa7b';
+            setTimeout(() => { copyStatus.innerText = ''; }, 3000);
+        } catch (e) {
+            // Fallback: select text
+            exportDataOutput.select();
+            document.execCommand('copy');
+            copyStatus.innerText = '\u2705 \u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff01(Copied!)';
+            copyStatus.style.color = '#50fa7b';
+            setTimeout(() => { copyStatus.innerText = ''; }, 3000);
+        }
+    });
+}
 
-        const exportData = {
-            name: state.myProfile.name,
-            mbti: state.myProfile.mbti,
-            message: state.myProfile.message,
-            font: state.myProfile.font,
-            id: Date.now().toString()
-        };
-
-        exportDataOutput.value = JSON.stringify(exportData);
-    }
-
-    // Copy to clipboard
-    const copyProfileBtn = document.getElementById('copyProfileBtn');
-    const shareProfileBtn = document.getElementById('shareProfileBtn');
-    const copyStatus = document.getElementById('copyStatus');
-
-    if (copyProfileBtn) {
-        copyProfileBtn.addEventListener('click', async () => {
-            const exportDataOutput = document.getElementById('exportDataOutput');
-            if (!exportDataOutput) return;
+if (shareProfileBtn) {
+    shareProfileBtn.addEventListener('click', async () => {
+        const exportDataOutput = document.getElementById('exportDataOutput');
+        if (!exportDataOutput) return;
+        if (navigator.share) {
             try {
-                await navigator.clipboard.writeText(exportDataOutput.value);
-                copyStatus.innerText = '\u2705 \u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff01(Copied!)';
-                copyStatus.style.color = '#50fa7b';
-                setTimeout(() => { copyStatus.innerText = ''; }, 3000);
+                await navigator.share({
+                    title: '\u6df1\u6d77\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u5e33',
+                    text: '\u79c1\u306e\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u3092\u8ffd\u52a0\u3057\u3066\u306d\uff01\n' + exportDataOutput.value
+                });
             } catch (e) {
-                // Fallback: select text
-                exportDataOutput.select();
-                document.execCommand('copy');
-                copyStatus.innerText = '\u2705 \u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\uff01(Copied!)';
-                copyStatus.style.color = '#50fa7b';
-                setTimeout(() => { copyStatus.innerText = ''; }, 3000);
+                // User cancelled or error
             }
-        });
+        } else {
+            // Fallback: copy
+            copyProfileBtn.click();
+            copyStatus.innerText = '\u203b \u5171\u6709\u975e\u5bfe\u5fdc\u306e\u30d6\u30e9\u30a6\u30b6\u3067\u3059\u3002\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\u3002';
+        }
+    });
+}
+
+if (importProfileBtn) {
+    importProfileBtn.addEventListener('click', () => {
+        try {
+            const json = importDataInput.value;
+            if (!json) return alert("データが空です！(Empty)");
+
+            const friendData = JSON.parse(json);
+
+            // Add as a new Friend
+            const newFriend = {
+                id: friendData.id || Date.now().toString(),
+                name: friendData.name || "Unknown",
+                mbti: friendData.mbti || "INFP",
+                relation: "friend",
+                affinity: 0,
+                backgroundImage: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", // Default
+                message: friendData.message || "はじめまして！",
+                font: friendData.font, // Inherit font preference
+
+                // Generate random details for missing info
+                blood: "A",
+                sign: "うお座",
+                hobby: "不明",
+                mood: "happy",
+                lastExchanged: null
+            };
+
+            // Enhance with Species info
+            generateRandomDetails(newFriend); // Fill random blood/hobby
+
+            state.friends.push(newFriend);
+            saveState();
+
+            alert(`${newFriend.name}さんが友達に追加されました！\n(Friend Added!)`);
+            exchangeModal.classList.add('hidden');
+            renderFriendBook();
+            importDataInput.value = ""; // Clear
+
+        } catch (e) {
+            alert("データの読み込みに失敗しました。\n(Invalid Data)");
+            console.error(e);
+        }
+    });
+}
+
+
+// --- Phase 8: Shinri Test Logic ---
+
+if (addTestBtn) {
+    addTestBtn.addEventListener('click', () => {
+        testModal.classList.remove('hidden');
+        startRandomTest();
+    });
+}
+
+if (closeTestBtn) {
+    closeTestBtn.addEventListener('click', () => {
+        testModal.classList.add('hidden');
+    });
+}
+
+function startRandomTest() {
+    // Check if SHINRI_TESTS is defined
+    if (typeof SHINRI_TESTS === 'undefined' || SHINRI_TESTS.length === 0) {
+        alert("心理テストデータが見つかりません");
+        return;
     }
 
-    if (shareProfileBtn) {
-        shareProfileBtn.addEventListener('click', async () => {
-            const exportDataOutput = document.getElementById('exportDataOutput');
-            if (!exportDataOutput) return;
-            if (navigator.share) {
-                try {
-                    await navigator.share({
-                        title: '\u6df1\u6d77\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u5e33',
-                        text: '\u79c1\u306e\u30d7\u30ed\u30d5\u30a3\u30fc\u30eb\u3092\u8ffd\u52a0\u3057\u3066\u306d\uff01\n' + exportDataOutput.value
-                    });
-                } catch (e) {
-                    // User cancelled or error
-                }
-            } else {
-                // Fallback: copy
-                copyProfileBtn.click();
-                copyStatus.innerText = '\u203b \u5171\u6709\u975e\u5bfe\u5fdc\u306e\u30d6\u30e9\u30a6\u30b6\u3067\u3059\u3002\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\u3002';
-            }
-        });
-    }
+    const test = SHINRI_TESTS[Math.floor(Math.random() * SHINRI_TESTS.length)];
+    testQuestion.innerText = `Q. ${test.question}`;
+    testOptions.innerHTML = "";
 
-    if (importProfileBtn) {
-        importProfileBtn.addEventListener('click', () => {
-            try {
-                const json = importDataInput.value;
-                if (!json) return alert("データが空です！(Empty)");
-
-                const friendData = JSON.parse(json);
-
-                // Add as a new Friend
-                const newFriend = {
-                    id: friendData.id || Date.now().toString(),
-                    name: friendData.name || "Unknown",
-                    mbti: friendData.mbti || "INFP",
-                    relation: "friend",
-                    affinity: 0,
-                    backgroundImage: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", // Default
-                    message: friendData.message || "はじめまして！",
-                    font: friendData.font, // Inherit font preference
-
-                    // Generate random details for missing info
-                    blood: "A",
-                    sign: "うお座",
-                    hobby: "不明",
-                    mood: "happy",
-                    lastExchanged: null
-                };
-
-                // Enhance with Species info
-                generateRandomDetails(newFriend); // Fill random blood/hobby
-
-                state.friends.push(newFriend);
-                saveState();
-
-                alert(`${newFriend.name}さんが友達に追加されました！\n(Friend Added!)`);
-                exchangeModal.classList.add('hidden');
-                renderFriendBook();
-                importDataInput.value = ""; // Clear
-
-            } catch (e) {
-                alert("データの読み込みに失敗しました。\n(Invalid Data)");
-                console.error(e);
-            }
-        });
-    }
-
-
-    // --- Phase 8: Shinri Test Logic ---
-
-    if (addTestBtn) {
-        addTestBtn.addEventListener('click', () => {
-            testModal.classList.remove('hidden');
-            startRandomTest();
-        });
-    }
-
-    if (closeTestBtn) {
-        closeTestBtn.addEventListener('click', () => {
+    test.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-secondary';
+        btn.innerText = opt.text;
+        btn.onclick = () => {
+            applyTestResult(test.question, opt);
             testModal.classList.add('hidden');
-        });
-    }
+        };
+        testOptions.appendChild(btn);
+    });
+}
 
-    function startRandomTest() {
-        // Check if SHINRI_TESTS is defined
-        if (typeof SHINRI_TESTS === 'undefined' || SHINRI_TESTS.length === 0) {
-            alert("心理テストデータが見つかりません");
+function applyTestResult(question, option) {
+    const contentBox = document.getElementById('diaryInput');
+    const resultText = `\n\n【心理テスト】\nQ: ${question}\nA: ${option.text}\n→ ${option.result}\n(当たってる？)`;
+    contentBox.value += resultText;
+}
+// --- Settings Logic ---
+const settingsModal = document.getElementById('settingsModal');
+const openSettingsBtn = document.getElementById('openSettingsBtn');
+const closeSettingsBtn = document.getElementById('closeSettingsBtn');
+const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+const reDiagnoseBtn = document.getElementById('reDiagnoseBtn');
+
+function populateSettings() {
+    if (!state.myProfile) return;
+    document.getElementById('settingName').value = state.myProfile.name || '';
+    document.getElementById('settingMBTI').value = state.myProfile.mbti || 'INFP';
+    document.getElementById('settingBlood').value = state.myProfile.blood || 'A';
+    document.getElementById('settingSign').value = state.myProfile.sign || 'aries';
+    document.getElementById('settingHobby').value = state.myProfile.hobby || '';
+    document.getElementById('settingRole').value = state.myProfile.role || 'leader';
+    document.getElementById('settingMood').value = state.myProfile.mood || 'fine';
+    document.getElementById('settingMessage').value = state.myProfile.message || '';
+
+    // Show current font name
+    const fontName = document.getElementById('settingFontName');
+    const currentFont = state.myProfile.font || "'Zen Maru Gothic'";
+    const matchedFont = HANDWRITING_FONTS.find(f => f.font === currentFont);
+    fontName.innerText = matchedFont ? matchedFont.name : currentFont;
+}
+
+if (openSettingsBtn) {
+    console.log("Attaching listener to openSettingsBtn");
+    openSettingsBtn.addEventListener('click', () => {
+        console.log("Settings Button Clicked");
+        const modal = document.getElementById('settingsModal');
+        if (modal) {
+            populateSettings();
+            modal.classList.remove('hidden');
+        } else {
+            alert('Error: Settings Modal not found');
+        }
+    });
+}
+
+if (closeSettingsBtn) {
+    closeSettingsBtn.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+    });
+}
+
+if (saveSettingsBtn) {
+    saveSettingsBtn.addEventListener('click', () => {
+        if (!state.myProfile) return;
+
+        const newMBTI = document.getElementById('settingMBTI').value;
+        const mbtiChanged = newMBTI !== state.myProfile.mbti;
+
+        state.myProfile.name = document.getElementById('settingName').value;
+        state.myProfile.mbti = newMBTI;
+        state.myProfile.blood = document.getElementById('settingBlood').value;
+        state.myProfile.sign = document.getElementById('settingSign').value;
+        state.myProfile.hobby = document.getElementById('settingHobby').value;
+        state.myProfile.role = document.getElementById('settingRole').value;
+        state.myProfile.mood = document.getElementById('settingMood').value;
+        state.myProfile.message = document.getElementById('settingMessage').value;
+
+        // Update species if MBTI changed
+        if (mbtiChanged) {
+            const mapping = DEEP_SEA_MAPPING[newMBTI];
+            if (mapping) {
+                state.myProfile.species = mapping.species;
+                state.myProfile.speciesDesc = mapping.desc;
+            }
+        }
+
+        saveState();
+        settingsModal.classList.add('hidden');
+        renderProfile();
+        alert('設定を保存しました！\n(Settings saved!)');
+    });
+}
+
+// --- Phase 10: Diary Exchange Logic ---
+const diaryExchangeModal = document.getElementById('diaryExchangeModal');
+const closeDiaryExchangeBtn = document.getElementById('closeDiaryExchangeBtn');
+const importDiaryBtn = document.getElementById('importDiaryBtn');
+const diaryImportView = document.getElementById('diaryImportView');
+const diaryExportView = document.getElementById('diaryExportView');
+const diaryImportInput = document.getElementById('diaryImportInput');
+const diaryExportOutput = document.getElementById('diaryExportOutput');
+const runImportDiaryBtn = document.getElementById('runImportDiaryBtn');
+const copyDiaryDataBtn = document.getElementById('copyDiaryDataBtn');
+const diaryCopyStatus = document.getElementById('diaryCopyStatus');
+
+if (closeDiaryExchangeBtn) {
+    closeDiaryExchangeBtn.addEventListener('click', () => {
+        diaryExchangeModal.classList.add('hidden');
+    });
+}
+
+if (importDiaryBtn) {
+    importDiaryBtn.addEventListener('click', () => {
+        diaryExchangeModal.classList.remove('hidden');
+        diaryImportView.classList.remove('hidden');
+        diaryExportView.classList.add('hidden');
+        diaryImportInput.value = ""; // Clear
+    });
+}
+
+// Function to open export view with data
+function openDiaryExportModal(entry) {
+    if (!diaryExchangeModal) return;
+
+    diaryExchangeModal.classList.remove('hidden');
+    diaryImportView.classList.add('hidden');
+    diaryExportView.classList.remove('hidden');
+
+    // Create shareable data package
+    const shareData = {
+        type: "diary_entry",
+        entry: entry,
+        sender: state.myProfile ? state.myProfile.name : "Unknown",
+        timestamp: Date.now()
+    };
+
+    diaryExportOutput.value = JSON.stringify(shareData);
+    diaryCopyStatus.innerText = "";
+}
+
+// Copy Diary Data
+if (copyDiaryDataBtn) {
+    copyDiaryDataBtn.addEventListener('click', async () => {
+        if (!diaryExportOutput) return;
+        try {
+            await navigator.clipboard.writeText(diaryExportOutput.value);
+            diaryCopyStatus.innerText = "✅ コピーしました！(Copied!)";
+            diaryCopyStatus.style.color = "#50fa7b";
+        } catch (e) {
+            diaryExportOutput.select();
+            document.execCommand('copy');
+            diaryCopyStatus.innerText = "✅ コピーしました！(Copied!)";
+            diaryCopyStatus.style.color = "#50fa7b";
+        }
+    });
+}
+
+// Import Diary Data
+if (runImportDiaryBtn) {
+    runImportDiaryBtn.addEventListener('click', () => {
+        try {
+            const json = diaryImportInput.value;
+            if (!json) return alert("データが空です！(Empty)");
+
+            const data = JSON.parse(json);
+
+            // Validation
+            if (!data.entry || !data.entry.content) {
+                return alert("正しい日記データではありません。(Invalid Format)");
+            }
+
+            // Add to diary
+            // Check for duplicates (by ID)
+            const exists = state.diary.some(d => d.id === data.entry.id);
+            if (exists) {
+                return alert("この日記は既に取り込み済みです。(Already Imported)");
+            }
+
+            state.diary.unshift(data.entry);
+            // Sort by date new -> old? For now just unshift (newest top)
+            state.diary.sort((a, b) => b.id - a.id);
+
+            saveState();
+            renderDiaryBook();
+
+            diaryExchangeModal.classList.add('hidden');
+            alert(`${data.sender}さんの日記を受け取りました！\n(Diary Received!)`);
+
+        } catch (e) {
+            alert("データの読み込みに失敗しました。(Error)");
+            console.error(e);
+        }
+    });
+}
+
+// Update settings re-diagnose logic to safer version
+if (reDiagnoseBtn) {
+    reDiagnoseBtn.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+        handwritingModal.classList.remove('hidden');
+        // Reset view
+        if (scanProgress) scanProgress.classList.add('hidden');
+        if (analysisQuestionArea) analysisQuestionArea.classList.add('hidden');
+        if (fontResult) fontResult.classList.add('hidden');
+        if (analysisOptions) analysisOptions.classList.remove('hidden');
+
+        // Reset state
+        tempSelectedFont = "";
+        currentQuestionIndex = 0;
+        totalFontScores = { hachi: 0, klee: 0, yomogi: 0, potta: 0, zen: 0, standard: 0 };
+    });
+}
+
+
+// --- Phase 11: Data Backup & Restore Logic ---
+const backupModal = document.getElementById('backupModal');
+const openBackupBtn = document.getElementById('openBackupBtn');
+const closeBackupBtn = document.getElementById('closeBackupBtn');
+const backupExportOutput = document.getElementById('backupExportOutput');
+const copyBackupBtn = document.getElementById('copyBackupBtn');
+const backupCopyStatus = document.getElementById('backupCopyStatus');
+const backupImportInput = document.getElementById('backupImportInput');
+const runRestoreBtn = document.getElementById('runRestoreBtn');
+
+if (openBackupBtn) {
+    openBackupBtn.addEventListener('click', () => {
+        settingsModal.classList.add('hidden');
+        backupModal.classList.remove('hidden');
+
+        // Export Data
+        const backupData = JSON.stringify(state);
+        backupExportOutput.value = backupData;
+        backupCopyStatus.innerText = "";
+    });
+}
+
+if (closeBackupBtn) {
+    closeBackupBtn.addEventListener('click', () => {
+        backupModal.classList.add('hidden');
+    });
+}
+
+if (copyBackupBtn) {
+    copyBackupBtn.addEventListener('click', async () => {
+        if (!backupExportOutput) return;
+        try {
+            await navigator.clipboard.writeText(backupExportOutput.value);
+            backupCopyStatus.innerText = "✅ コピーしました！(Copied!)";
+            backupCopyStatus.style.color = "#50fa7b";
+        } catch (e) {
+            backupExportOutput.select();
+            document.execCommand('copy');
+            backupCopyStatus.innerText = "✅ コピーしました！(Copied!)";
+            backupCopyStatus.style.color = "#50fa7b";
+        }
+    });
+}
+
+if (runRestoreBtn) {
+    runRestoreBtn.addEventListener('click', () => {
+        const json = backupImportInput.value;
+        if (!json) return alert("データが空です！(Empty)");
+
+        if (!confirm("現在のデータが上書きされます。よろしいですか？\n(Current data will be overwritten. OK?)")) {
             return;
         }
 
-        const test = SHINRI_TESTS[Math.floor(Math.random() * SHINRI_TESTS.length)];
-        testQuestion.innerText = `Q. ${test.question}`;
-        testOptions.innerHTML = "";
+        try {
+            const data = JSON.parse(json);
 
-        test.options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-secondary';
-            btn.innerText = opt.text;
-            btn.onclick = () => {
-                applyTestResult(test.question, opt);
-                testModal.classList.add('hidden');
-            };
-            testOptions.appendChild(btn);
-        });
-    }
-
-    function applyTestResult(question, option) {
-        const contentBox = document.getElementById('diaryInput');
-        const resultText = `\n\n【心理テスト】\nQ: ${question}\nA: ${option.text}\n→ ${option.result}\n(当たってる？)`;
-        contentBox.value += resultText;
-    }
-    // --- Settings Logic ---
-    const settingsModal = document.getElementById('settingsModal');
-    const openSettingsBtn = document.getElementById('openSettingsBtn');
-    const closeSettingsBtn = document.getElementById('closeSettingsBtn');
-    const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-    const reDiagnoseBtn = document.getElementById('reDiagnoseBtn');
-
-    function populateSettings() {
-        if (!state.myProfile) return;
-        document.getElementById('settingName').value = state.myProfile.name || '';
-        document.getElementById('settingMBTI').value = state.myProfile.mbti || 'INFP';
-        document.getElementById('settingBlood').value = state.myProfile.blood || 'A';
-        document.getElementById('settingSign').value = state.myProfile.sign || 'aries';
-        document.getElementById('settingHobby').value = state.myProfile.hobby || '';
-        document.getElementById('settingRole').value = state.myProfile.role || 'leader';
-        document.getElementById('settingMood').value = state.myProfile.mood || 'fine';
-        document.getElementById('settingMessage').value = state.myProfile.message || '';
-
-        // Show current font name
-        const fontName = document.getElementById('settingFontName');
-        const currentFont = state.myProfile.font || "'Zen Maru Gothic'";
-        const matchedFont = HANDWRITING_FONTS.find(f => f.font === currentFont);
-        fontName.innerText = matchedFont ? matchedFont.name : currentFont;
-    }
-
-    if (openSettingsBtn) {
-        console.log("Attaching listener to openSettingsBtn");
-        openSettingsBtn.addEventListener('click', () => {
-            console.log("Settings Button Clicked");
-            const modal = document.getElementById('settingsModal');
-            if (modal) {
-                populateSettings();
-                modal.classList.remove('hidden');
-            } else {
-                alert('Error: Settings Modal not found');
-            }
-        });
-    }
-
-    if (closeSettingsBtn) {
-        closeSettingsBtn.addEventListener('click', () => {
-            settingsModal.classList.add('hidden');
-        });
-    }
-
-    if (saveSettingsBtn) {
-        saveSettingsBtn.addEventListener('click', () => {
-            if (!state.myProfile) return;
-
-            const newMBTI = document.getElementById('settingMBTI').value;
-            const mbtiChanged = newMBTI !== state.myProfile.mbti;
-
-            state.myProfile.name = document.getElementById('settingName').value;
-            state.myProfile.mbti = newMBTI;
-            state.myProfile.blood = document.getElementById('settingBlood').value;
-            state.myProfile.sign = document.getElementById('settingSign').value;
-            state.myProfile.hobby = document.getElementById('settingHobby').value;
-            state.myProfile.role = document.getElementById('settingRole').value;
-            state.myProfile.mood = document.getElementById('settingMood').value;
-            state.myProfile.message = document.getElementById('settingMessage').value;
-
-            // Update species if MBTI changed
-            if (mbtiChanged) {
-                const mapping = DEEP_SEA_MAPPING[newMBTI];
-                if (mapping) {
-                    state.myProfile.species = mapping.species;
-                    state.myProfile.speciesDesc = mapping.desc;
-                }
+            // Simple Validation
+            if (!data.myProfile || !Array.isArray(data.friends)) {
+                return alert("データ形式が正しくありません。(Invalid Data)");
             }
 
-            saveState();
-            settingsModal.classList.add('hidden');
-            renderProfile();
-            alert('設定を保存しました！\n(Settings saved!)');
-        });
-    }
+            // Restore properties
+            state.myProfile = data.myProfile;
+            state.friends = data.friends || [];
+            state.diary = data.diary || [];
+            state.currentFriendIndex = data.currentFriendIndex || -1;
+            state.currentDiaryIndex = data.currentDiaryIndex || 0;
 
-    // --- Phase 10: Diary Exchange Logic ---
-    const diaryExchangeModal = document.getElementById('diaryExchangeModal');
-    const closeDiaryExchangeBtn = document.getElementById('closeDiaryExchangeBtn');
-    const importDiaryBtn = document.getElementById('importDiaryBtn');
-    const diaryImportView = document.getElementById('diaryImportView');
-    const diaryExportView = document.getElementById('diaryExportView');
-    const diaryImportInput = document.getElementById('diaryImportInput');
-    const diaryExportOutput = document.getElementById('diaryExportOutput');
-    const runImportDiaryBtn = document.getElementById('runImportDiaryBtn');
-    const copyDiaryDataBtn = document.getElementById('copyDiaryDataBtn');
-    const diaryCopyStatus = document.getElementById('diaryCopyStatus');
+            localStorage.setItem('deepSeaDiaryState', JSON.stringify(state));
 
-    if (closeDiaryExchangeBtn) {
-        closeDiaryExchangeBtn.addEventListener('click', () => {
-            diaryExchangeModal.classList.add('hidden');
-        });
-    }
+            alert("データを復元しました！アプリを再起動します。\n(Restored! Reloading app...)");
+            location.reload();
 
-    if (importDiaryBtn) {
-        importDiaryBtn.addEventListener('click', () => {
-            diaryExchangeModal.classList.remove('hidden');
-            diaryImportView.classList.remove('hidden');
-            diaryExportView.classList.add('hidden');
-            diaryImportInput.value = ""; // Clear
-        });
-    }
-
-    // Function to open export view with data
-    function openDiaryExportModal(entry) {
-        if (!diaryExchangeModal) return;
-
-        diaryExchangeModal.classList.remove('hidden');
-        diaryImportView.classList.add('hidden');
-        diaryExportView.classList.remove('hidden');
-
-        // Create shareable data package
-        const shareData = {
-            type: "diary_entry",
-            entry: entry,
-            sender: state.myProfile ? state.myProfile.name : "Unknown",
-            timestamp: Date.now()
-        };
-
-        diaryExportOutput.value = JSON.stringify(shareData);
-        diaryCopyStatus.innerText = "";
-    }
-
-    // Copy Diary Data
-    if (copyDiaryDataBtn) {
-        copyDiaryDataBtn.addEventListener('click', async () => {
-            if (!diaryExportOutput) return;
-            try {
-                await navigator.clipboard.writeText(diaryExportOutput.value);
-                diaryCopyStatus.innerText = "✅ コピーしました！(Copied!)";
-                diaryCopyStatus.style.color = "#50fa7b";
-            } catch (e) {
-                diaryExportOutput.select();
-                document.execCommand('copy');
-                diaryCopyStatus.innerText = "✅ コピーしました！(Copied!)";
-                diaryCopyStatus.style.color = "#50fa7b";
-            }
-        });
-    }
-
-    // Import Diary Data
-    if (runImportDiaryBtn) {
-        runImportDiaryBtn.addEventListener('click', () => {
-            try {
-                const json = diaryImportInput.value;
-                if (!json) return alert("データが空です！(Empty)");
-
-                const data = JSON.parse(json);
-
-                // Validation
-                if (!data.entry || !data.entry.content) {
-                    return alert("正しい日記データではありません。(Invalid Format)");
-                }
-
-                // Add to diary
-                // Check for duplicates (by ID)
-                const exists = state.diary.some(d => d.id === data.entry.id);
-                if (exists) {
-                    return alert("この日記は既に取り込み済みです。(Already Imported)");
-                }
-
-                state.diary.unshift(data.entry);
-                // Sort by date new -> old? For now just unshift (newest top)
-                state.diary.sort((a, b) => b.id - a.id);
-
-                saveState();
-                renderDiaryBook();
-
-                diaryExchangeModal.classList.add('hidden');
-                alert(`${data.sender}さんの日記を受け取りました！\n(Diary Received!)`);
-
-            } catch (e) {
-                alert("データの読み込みに失敗しました。(Error)");
-                console.error(e);
-            }
-        });
-    }
-
-    // Update settings re-diagnose logic to safer version
-    if (reDiagnoseBtn) {
-        reDiagnoseBtn.addEventListener('click', () => {
-            settingsModal.classList.add('hidden');
-            handwritingModal.classList.remove('hidden');
-            // Reset view
-            if (scanProgress) scanProgress.classList.add('hidden');
-            if (analysisQuestionArea) analysisQuestionArea.classList.add('hidden');
-            if (fontResult) fontResult.classList.add('hidden');
-            if (analysisOptions) analysisOptions.classList.remove('hidden');
-
-            // Reset state
-            tempSelectedFont = "";
-            currentQuestionIndex = 0;
-            totalFontScores = { hachi: 0, klee: 0, yomogi: 0, potta: 0, zen: 0, standard: 0 };
-        });
-    }
-
-
-    // --- Phase 11: Data Backup & Restore Logic ---
-    const backupModal = document.getElementById('backupModal');
-    const openBackupBtn = document.getElementById('openBackupBtn');
-    const closeBackupBtn = document.getElementById('closeBackupBtn');
-    const backupExportOutput = document.getElementById('backupExportOutput');
-    const copyBackupBtn = document.getElementById('copyBackupBtn');
-    const backupCopyStatus = document.getElementById('backupCopyStatus');
-    const backupImportInput = document.getElementById('backupImportInput');
-    const runRestoreBtn = document.getElementById('runRestoreBtn');
-
-    if (openBackupBtn) {
-        openBackupBtn.addEventListener('click', () => {
-            settingsModal.classList.add('hidden');
-            backupModal.classList.remove('hidden');
-
-            // Export Data
-            const backupData = JSON.stringify(state);
-            backupExportOutput.value = backupData;
-            backupCopyStatus.innerText = "";
-        });
-    }
-
-    if (closeBackupBtn) {
-        closeBackupBtn.addEventListener('click', () => {
-            backupModal.classList.add('hidden');
-        });
-    }
-
-    if (copyBackupBtn) {
-        copyBackupBtn.addEventListener('click', async () => {
-            if (!backupExportOutput) return;
-            try {
-                await navigator.clipboard.writeText(backupExportOutput.value);
-                backupCopyStatus.innerText = "✅ コピーしました！(Copied!)";
-                backupCopyStatus.style.color = "#50fa7b";
-            } catch (e) {
-                backupExportOutput.select();
-                document.execCommand('copy');
-                backupCopyStatus.innerText = "✅ コピーしました！(Copied!)";
-                backupCopyStatus.style.color = "#50fa7b";
-            }
-        });
-    }
-
-    if (runRestoreBtn) {
-        runRestoreBtn.addEventListener('click', () => {
-            const json = backupImportInput.value;
-            if (!json) return alert("データが空です！(Empty)");
-
-            if (!confirm("現在のデータが上書きされます。よろしいですか？\n(Current data will be overwritten. OK?)")) {
-                return;
-            }
-
-            try {
-                const data = JSON.parse(json);
-
-                // Simple Validation
-                if (!data.myProfile || !Array.isArray(data.friends)) {
-                    return alert("データ形式が正しくありません。(Invalid Data)");
-                }
-
-                // Restore properties
-                state.myProfile = data.myProfile;
-                state.friends = data.friends || [];
-                state.diary = data.diary || [];
-                state.currentFriendIndex = data.currentFriendIndex || -1;
-                state.currentDiaryIndex = data.currentDiaryIndex || 0;
-
-                localStorage.setItem('deepSeaDiaryState', JSON.stringify(state));
-
-                alert("データを復元しました！アプリを再起動します。\n(Restored! Reloading app...)");
-                location.reload();
-
-            } catch (e) {
-                alert("データの読み込みに失敗しました。\n(Error parsing JSON)");
-                console.error(e);
-            }
-        });
-    }
-
-
-    // --- Init App ---
-    window.onload = () => {
-        loadState();
-        if (state.myProfile) {
-            // App Mode
-            createView.classList.add('hidden');
-            bookView.classList.remove('hidden');
-            renderProfile();
-            renderFriendBook();
-            renderDiaryBook();
-            checkUnlockables();
-        } else {
-            // New Game
-            createView.classList.remove('hidden');
+        } catch (e) {
+            alert("データの読み込みに失敗しました。\n(Error parsing JSON)");
+            console.error(e);
         }
+    });
+}
 
-        createBubbles();
-        console.log("Deep Sea App Phase 11 Initialized!");
 
-        // Debug Logs for Buttons
-        if (!document.getElementById('openSettingsBtn')) console.error("FATAL: openSettingsBtn NOT FOUND in DOM");
-        else console.log("SUCCESS: openSettingsBtn found in DOM");
+// --- Init App ---
+window.onload = () => {
+    loadState();
+    if (state.myProfile) {
+        // App Mode
+        createView.classList.add('hidden');
+        bookView.classList.remove('hidden');
+        renderProfile();
+        renderFriendBook();
+        renderDiaryBook();
+        checkUnlockables();
+    } else {
+        // New Game
+        createView.classList.remove('hidden');
+    }
 
-        if (!document.getElementById('openExchangeBtn')) console.error("FATAL: openExchangeBtn NOT FOUND in DOM");
-        else console.log("SUCCESS: openExchangeBtn found in DOM");
+    createBubbles();
+    console.log("Deep Sea App Phase 11 Initialized!");
 
-        if (!document.getElementById('settingsModal')) console.error("FATAL: settingsModal NOT FOUND in DOM");
-        else console.log("SUCCESS: settingsModal found in DOM");
-    };
+    // Debug Logs for Buttons
+    if (!document.getElementById('openSettingsBtn')) console.error("FATAL: openSettingsBtn NOT FOUND in DOM");
+    else console.log("SUCCESS: openSettingsBtn found in DOM");
+
+    if (!document.getElementById('openExchangeBtn')) console.error("FATAL: openExchangeBtn NOT FOUND in DOM");
+    else console.log("SUCCESS: openExchangeBtn found in DOM");
+
+    if (!document.getElementById('settingsModal')) console.error("FATAL: settingsModal NOT FOUND in DOM");
+    else console.log("SUCCESS: settingsModal found in DOM");
+};
